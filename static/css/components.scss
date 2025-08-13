@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
+.vertical-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h3 {
+        color: var(--clr-ternary);
+        text-transform: capitalize;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 1.125rem;
+        margin-bottom: 1rem;
+    }
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: .75rem;
+
+        li {
+            // margin: .01rem 0;
+
+            a {
+                font-size: 1rem;
+                font-weight: 100;
+                font-family: 'Poppins', sans-serif;
+                transition: .3s ease-in-out;
+                text-transform: capitalize;
+
+                &:hover,
+                &.active {
+                    color: var(--clr-ternary);
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 769px) {
+        align-items: flex-start;
+
+        .nav-title {
+            // font-weight: 100;
+            margin-bottom: .75rem;
+        }
+
+        ul {
+            // display: flex;
+            // flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: .75rem;
+
+            li {
+                // margin: .01rem 0;
+
+                a {
+                    font-size: .75rem;
+                    font-weight: 100;
+                    // font-family: 'Poppins', sans-serif;
+                    // transition: .3s ease-in-out;
+
+                    // &:hover, &.active {
+                    //     color: var(--clr-secondary);
+                    // }
+                }
+            }
+        }
+    }
+}
+
+@supports ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+
+    .backdrop-blur {
+        background-color: rgba(#212121, 0.75);
+        border: 1px solid #707070;
+        backdrop-filter: blur(4px);
+
+        &::before {
+            display: none;
+        }
+    }
+}
+
+.backdrop-blur {
+    background-color: rgba(#373737, .75);
+    border: 1px solid #707070;
+    // backdrop-filter: blur(10px);
+    // position: relative;
+    // border-radius: 25px;
+
+    &::before {
+        position: absolute;
+        content: '';
+        width: 90%;
+        height: 90%;
+        top: 5%;
+        left: 5%;
+        background-color: rgba(#373737, 0.35);
+        filter: blur(5rem);
+        z-index: -1;
+        border-radius: 25px;
+    }
+}

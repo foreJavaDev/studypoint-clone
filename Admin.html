@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .admin-container {
+            display: flex;
+        }
+
+        .sidebar {
+            background-color: #3d3e44;
+            color: white;
+            height: 100vh;
+            position: fixed;
+        }
+        
+         .sidebar .logoContainer{
+         	
+         	width:5rem;
+         	height:5rem;
+            margin-left: 25%;
+         	
+         }
+
+        .sidebar .logoContainer .logo {
+	        height:4rem;
+	        width:4rem;
+            text-align: center;
+            background-image: url("/images/admin/admin.png");
+		    background-position: center;
+		    background-repeat: no-repeat;
+		    background-size: cover;
+        }
+
+        .sidebar .nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar .nav li {
+            padding: 15px;
+        }
+
+        .sidebar .nav a {
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+
+        .sidebar .dropdown-content {
+            display: none;
+            background-color: #333;
+            padding-left: 20px;
+        }
+
+        .sidebar .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .content-area {
+            margin-left: 250px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            flex-grow: 1;
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section h2 {
+            margin-top: 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+        }
+
+        .frame {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .frame:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+/*    css for adding tutorial  */
+        .upload-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .upload-container h2 {
+            margin-bottom: 20px;
+            color: #333333;
+        }
+        .upload-container input[type="file"] {
+            margin-bottom: 20px;
+        }
+        .upload-container input[type="submit"] {
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .upload-container input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+      /* css for transactions */
+      .search-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .search-box {
+            background-color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .search-box input[type="text"] {
+            padding: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .search-box button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .search-box button:hover {
+            background-color: #45a049;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form input{
+            text-align: center;
+            
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-top: 80px; /* Ensure spacing under search box */
+        }
+
+        h1 {
+            text-align:left;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        thead {
+            background-color: #343a40;
+            color: #fff;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #e9ecef;
+        }
+
+        tbody tr:hover {
+            background-color: #dfe6e9;
+        }
+
+        table th {
+            font-weight: bold;
+            background-color: #343a40;
+            color: white;
+        }
+
+        table td {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        @media screen and (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            thead {
+                display: none;
+            }
+
+            tbody tr {
+                margin-bottom: 15px;
+            }
+
+            tbody td {
+                display: block;
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+
+            tbody td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                width: 45%;
+                padding-left: 15px;
+                font-weight: bold;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="sidebar">
+        	<div class="logoContainer">
+        		<div class="logo"></div>
+        	</div>
+            
+            <ul class="nav">
+                <li><a href="#" onclick="showContent('dashboard')">Dashboard</a></li>
+                <li><a href="#" onclick="showContent('add-tutorial')">Add Tutorial</a></li>
+                <li><a href="#" onclick="showContent('get-students')">Get Students</a></li>
+                <li><a href="#" onclick="showContent('get-transactions')">Get Transactions</a></li>
+                <li><a href="#" onclick="showContent('unisa-assignments')">Unisa Exam Assignments</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Settings</a>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="showContent('payment')">Payment</a>
+                        <a href="#" onclick="showContent('smtp')">SMTP</a>
+                        <a href="#" onclick="showContent('admins')">Admins</a>
+                        <a href="#" onclick="showContent('users')">Users</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="content-area">
+            <div id="dashboard" class="content-section">
+                <h2>Dashboard</h2>
+                <div class="grid">
+                    <div class="frame">Tutorials</div>
+                    <div class="frame">Students</div>
+                    <div class="frame">Transactions</div>
+                    <div class="frame">Unisa Exam Assignments</div>
+                </div>
+            </div>
+           	<div id="add-tutorial" class="content-section">
+    			<h2>Add Tutorial</h2>
+    			<div class="upload-container">
+        			<h2>Upload Paid Tutorials</h2>
+        				<form th:action="@{/uploadTutorial/Mechanical/paid/N2/Boiler-Maker-Trade-Theory}" method="post" enctype="multipart/form-data">
+            				<label for="fileUpload">Choose File</label>
+            				<input type="file" name="file" id="fileUpload" required>
+            				<br><br>
+            				<label for="amount">Enter Amount (USD)</label>
+            				<input type="number" name="amount" id="amount" placeholder="Enter amount" step="0.01" min="0" required>
+            				<br><br>
+            				<input type="submit" value="Upload">
+        				</form>
+    			</div>
+
+                <div class="upload-container">
+        			<h2>Upload Paid Books </h2>
+        				<form th:action="@{/uploadTutorial/Mechanical/N2/Boiler-Maker-Trade-Theory}" method="post" enctype="multipart/form-data">
+            				<label for="fileUpload">Choose File</label>
+            				<input type="file" name="file" id="fileUpload" required>
+            				<br><br>
+            				<label for="amount">Enter Amount (USD)</label>
+            				<input type="number" name="amount" id="amount" placeholder="Enter amount" step="0.01" min="0" required>
+            				<br><br>
+            				<input type="submit" value="Upload">
+        				</form>
+    			</div>
+
+                <div class="upload-container">
+        			<h2>Upload Free Tutorials</h2>
+        				<form th:action="@{/uploadTutorial/Mechanical/free/N2/Boiler-Maker-Trade-Theory}" method="post" enctype="multipart/form-data">
+            				<label for="fileUpload">Choose File</label>
+            				<input type="file" name="file" id="fileUpload" required>
+            				<br><br>
+            				<label for="amount">Enter Amount (USD)</label>
+            				<input type="number" name="amount" id="amount" placeholder="Enter amount" step="0.01" min="0" required>
+            				<br><br>
+            				<input type="submit" value="Upload">
+        				</form>
+    			</div>
+
+                <div class="upload-container">
+        			<h2>Upload free books</h2>
+        				<form th:action="@{/uploadTutorial/Mechanical/N2/Boiler-Maker-Trade-Theory}" method="post" enctype="multipart/form-data">
+            				<label for="fileUpload">Choose File</label>
+            				<input type="file" name="file" id="fileUpload" required>
+            				<br><br>
+            				<label for="amount">Enter Amount (USD)</label>
+            				<input type="number" name="amount" id="amount" placeholder="Enter amount" step="0.01" min="0" required>
+            				<br><br>
+            				<input type="submit" value="Upload">
+        				</form>
+    			</div>
+			</div>
+            
+            <div id="get-students" class="content-section">
+                <h2>Students</h2>
+                <div class="search-container">
+                    <div class="search-box">
+                        <h2>Get student details</h2>
+                        <form th:action="@{/student-payments}" method="get">
+                            <input type="text" name="email" placeholder="Enter student email" required />
+                            <button type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            
+                <!-- Student Payments Table -->
+                <div class="container">
+                    <div class="row">
+                        <h1>List of registered students</h1>
+                    </div>
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Enrollment_#</th>
+                                <th>First_Name</th>
+                                <th>Last_Name</th>
+                                <th>Date_Of_Birth</th>
+                                <th>Email</th>
+                                <th>Country</th>
+                                <th>House_Address</th>
+                                <th>Phone_Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="payment: ${studentPayments}">
+                                <td th:text="${payment.id}"></td>
+                                <td th:text="${payment.email}"></td>
+                                <td th:text="${payment.amount}"></td>
+                                <td th:text="${payment.currency}"></td>
+                                <td th:text="${payment.reference}"></td>
+                                <td th:text="${payment.status}"></td>
+                                <td th:text="${payment.paymentUrl}"></td>
+                                <td th:text="${payment.createdAt}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="get-transactions" class="content-section">
+                <h2>Transactions</h2>
+                <!-- Search Form -->
+    <div class="search-container">
+        <div class="search-box">
+            <h2>Get student payments</h2>
+            <form th:action="@{/student-payments}" method="get">
+                <input type="text" name="email" placeholder="Enter student email" required />
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Student Payments Table -->
+    <div class="container">
+        <div class="row">
+            <h1>Payments made by all students</h1>
+        </div>
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Payment_#</th>
+                    <th>Stud_Email</th>
+                    <th>Cash-In-Flow</th>
+                    <th>Currency</th>
+                    <th>Paym_Reference</th>
+                    <th>Status</th>
+                    <th>Paym_Endpoint</th>
+                    <th>Paym_Time</th>
+                    <th>Payment-Updated-At</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="payment: ${studentPayments}">
+                    <td th:text="${payment.id}"></td>
+                    <td th:text="${payment.email}"></td>
+                    <td th:text="${payment.amount}"></td>
+                    <td th:text="${payment.currency}"></td>
+                    <td th:text="${payment.reference}"></td>
+                    <td th:text="${payment.status}"></td>
+                    <td th:text="${payment.paymentUrl}"></td>
+                    <td th:text="${payment.createdAt}"></td>
+                    <td th:text="${payment.updatedAt}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+            </div>
+            <div id="unisa-assignments" class="content-section">
+                <h2>Unisa Exam Assignments</h2>
+                <p>Content for Unisa Exam Assignments...</p>
+            </div>
+            <div id="payment" class="content-section">
+                <h2>Payment Settings</h2>
+                <p>Content for payment settings...</p>
+            </div>
+            <div id="smtp" class="content-section">
+                <h2>SMTP Settings</h2>
+                <p>Content for SMTP settings...</p>
+            </div>
+            <div id="admins" class="content-section">
+                <h2>Manage Admins</h2>
+                <p>Content for managing admins...</p>
+            </div>
+            <div id="users" class="content-section">
+                <h2>Manage Users</h2>
+                <p>Content for managing users...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showContent(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        // Show dashboard content by default on page load
+        window.onload = function() {
+            showContent('dashboard');
+        }
+    </script>
+</body>
+</html>

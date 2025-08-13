@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Point Tutorials | Home Page</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/components.css">
+    <link rel="stylesheet" href="./css/home/home.css">
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <header>
+        <div class="fixed-header">
+            <div class="search-container">
+                <div class="search-block">
+                    <input type="text">
+                    <img src="./images/icons/search.png" alt="search">
+                </div>
+                <div class="results d-none">
+
+                </div>
+            </div>
+            <div class="user-block">
+                <a href="#" onclick="openModal('registerModal')">Register</a>
+                <a href="#" onclick="openModal('loginModal')">Login</a>
+                <a href="Admin.html">Admin</a>
+                <img src="" alt="">
+            </div>
+            <div class="mobile">
+                <button id="menu"><img src="./images/icons/menu.png" alt="menu"></button>
+            </div>
+        </div>
+        <div class="desktop">
+            <div class="nav-container">
+    
+                <div class="left">
+                    <a href="" class="logo">
+                        <img src="./images/logos/logo.png" alt="logo">
+                        <div class="name">
+                            <span class="tun">StudyPoint</span>
+                            <span class="tut">Tutorials</span>
+                        </div>
+                    </a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="StudentPage.html">Test Login</a></li>
+                        <li><a href="">About</a></li>
+                        <li><a href="#" onclick="openModal('loginModal')">Library</a></li>
+                        <li><a href="">Programs</a></li>
+                        <li><a href="">Contact Us</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-logo">
+                    <img src="./images/logos/logo.png" alt="logo">
+                    <div class="modal-logo-text">
+                        <span class="tun">StudyPoint</span>
+                        <span class="tut">Tutorials</span>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeModal('registerModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h2>Create Your Account</h2>
+                <form class="auth-form">
+                    <div class="form-group">
+                        <input type="text" id="reg-name" placeholder="Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="reg-email" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="reg-password" placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="reg-confirm-password" placeholder="Confirm Password" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="reg-program" required>
+                            <option value="">Select Your Program</option>
+                            <option value="mechanical">Mechanical Engineering</option>
+                            <option value="chemical">Chemical Engineering</option>
+                            <option value="civil">Civil Engineering</option>
+                            <option value="electrical">Electrical Engineering</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="auth-btn">Register</button>
+                </form>
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="#" onclick="switchModal('registerModal', 'loginModal')">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-logo">
+                    <img src="./images/logos/logo.png" alt="logo">
+                    <div class="modal-logo-text">
+                        <span class="tun">StudyPoint</span>
+                        <span class="tut">Tutorials</span>
+                    </div>
+                </div>
+                <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h2>Welcome Back</h2>
+                <form class="auth-form">
+                    <div class="form-group">
+                        <input type="email" id="login-email" placeholder="Email Address" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="login-password" placeholder="Password" required>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="remember-me">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="auth-btn">Login</button>
+                </form>
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="#" onclick="switchModal('loginModal', 'registerModal')">Register here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="main">
+        <div class="first-block">
+            <!-- <img class="background-image" src="./images/content/hexagon.png" alt=""> -->
+            <div class="left">
+                <h1>Welcome to StudyPoint Tutorials!</h1>
+                <p>Discover the best tutors and resources for your studies. From introductory courses to advanced topics, we have got you covered.</p>
+                <b>Your Educational Success Is Guaranteed With Us</b>
+            </div>
+            <!-- <div class="right">
+
+            </div> -->
+        </div>
+        <div class="second-block">
+            <div class="card card-1">Mechanical</div>
+            <div class="card card-2">Chemical</div>
+            <div class="card card-3">Structures</div>
+        </div>
+
+        <div class="third-block">
+            <div class="hero-section">
+                <div class="hero-content">
+                    <h2>Why Choose StudyPoint?</h2>
+                    <div class="features-grid">
+                        <div class="feature-item">
+                            <div class="feature-icon">🎓</div>
+                            <h3>Expert Tutors</h3>
+                            <p>Learn from industry professionals with years of teaching experience</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">📚</div>
+                            <h3>Comprehensive Resources</h3>
+                            <p>Access to extensive library of study materials and practice tests</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">💻</div>
+                            <h3>Online Learning</h3>
+                            <p>Study at your own pace with our flexible online platform</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">📈</div>
+                            <h3>Progress Tracking</h3>
+                            <p>Monitor your learning progress with detailed analytics</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="5000">0</div>
+                    <div class="stat-label">Students Enrolled</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="150">0</div>
+                    <div class="stat-label">Expert Tutors</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="95">0</div>
+                    <div class="stat-label">Success Rate %</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="200">0</div>
+                    <div class="stat-label">Courses Available</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonials-section">
+            <h2>What Our Students Say</h2>
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"StudyPoint helped me achieve my academic goals. The tutors are amazing!"</p>
+                        <div class="testimonial-author">
+                            <strong>Sarah Johnson</strong>
+                            <span>Mechanical Engineering</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The online resources and practice tests were incredibly helpful for my preparation."</p>
+                        <div class="testimonial-author">
+                            <strong>Michael Chen</strong>
+                            <span>Chemical Engineering</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Flexible learning schedule and excellent support from the StudyPoint team."</p>
+                        <div class="testimonial-author">
+                            <strong>Emily Rodriguez</strong>
+                            <span>Civil Engineering</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <div class="cta-content">
+                <h2>Ready to Start Your Learning Journey?</h2>
+                <p>Join thousands of students who have already transformed their academic careers with StudyPoint</p>
+                <div class="cta-buttons">
+                    <a href="#" class="cta-btn primary">Get Started Today</a>
+                    <a href="#" class="cta-btn secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="fourth-block">
+            <div class="card">
+                <div class="content">
+                  <svg
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 9V5H4V9H20ZM20 11H4V19H20V11ZM3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3ZM5 12H8V17H5V12ZM5 6H7V8H5V6ZM9 6H11V8H9V6Z"
+                    ></path>
+                  </svg>
+                  <p class="para">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi laboriosam
+                    at voluptas minus culpa deserunt delectus sapiente inventore pariatur
+                  </p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="content">
+                  <svg
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 9V5H4V9H20ZM20 11H4V19H20V11ZM3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3ZM5 12H8V17H5V12ZM5 6H7V8H5V6ZM9 6H11V8H9V6Z"
+                    ></path>
+                  </svg>
+                  <p class="para">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi laboriosam
+                    at voluptas minus culpa deserunt delectus sapiente inventore pariatur
+                  </p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="content">
+                  <svg
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 9V5H4V9H20ZM20 11H4V19H20V11ZM3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3ZM5 12H8V17H5V12ZM5 6H7V8H5V6ZM9 6H11V8H9V6Z"
+                    ></path>
+                  </svg>
+                  <p class="para">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi laboriosam
+                    at voluptas minus culpa deserunt delectus sapiente inventore pariatur
+                  </p>
+                </div>
+              </div>
+                                          
+        </div>
+    </div>
+    <footer>
+        <div class="hover-contact">
+            <div class="left">
+                <h1>Subscribe!</h1>
+                <p>Send us your email and we will send you a list of our Tutorial Services.</p>
+            </div>
+            <form action="" class="right"><input type="text" size="15"><button>send!</button></form>
+        </div>
+        <div class="center">
+            <div class="subf sub-f1">
+                <img src="./images/logos/full.png" alt="logo">
+            </div>
+            <div class="subf vertical-nav sub-f2">
+                <h3>Links</h3>
+                <ul>
+                    <li><a href="">Admissions</a></li>
+                    <li><a href="">Pricing</a></li>
+                    <li><a href="">Library</a></li>
+                    <li><a href="">Programs</a></li>
+                </ul>
+            </div>
+            <div class="subf vertical-nav sub-f3">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="Terms-Policy.html">FAQ</a></li>
+                    <li><a href="Terms-Policy.html">How it Works</a></li>
+                    <li><a href="">Contact</a></li>
+                    <li><a href="Terms-Policy.html">Reporting</a></li>
+                    <li><a href="">Courses</a></li>
+                </ul>
+            </div>
+            <div class="subf vertical-nav sub-f4">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><a href="">email</a></li>
+                    <li><a href="">phone</a></li>
+                    <li><a href="">phone</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="left">Copyright 2024 | Created by CnL</div>
+            <div class="right"><a href="Terms-Policy.html">Terms of Use</a><span>|</span><a href="Terms-Policy.html">Privacy Policy</a></div>
+        </div>
+    </footer>
+    
+    <script>
+        // Statistics counter animation
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            
+            function updateCounter() {
+                start += increment;
+                if (start < target) {
+                    element.textContent = Math.floor(start);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = target;
+                }
+            }
+            updateCounter();
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Animate statistics when they come into view
+                    if (entry.target.classList.contains('stats-section')) {
+                        const statNumbers = entry.target.querySelectorAll('.stat-number');
+                        statNumbers.forEach(stat => {
+                            const target = parseInt(stat.getAttribute('data-target'));
+                            animateCounter(stat, target);
+                        });
+                    }
+                    
+                    // Add animation classes to other elements
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const animatedElements = document.querySelectorAll('.feature-item, .stat-item, .testimonial-card, .cta-content');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                observer.observe(el);
+            });
+
+            // Observe stats section specifically
+            const statsSection = document.querySelector('.stats-section');
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const menuButton = document.getElementById('menu');
+        if (menuButton) {
+            menuButton.addEventListener('click', () => {
+                // Add mobile menu functionality here
+                console.log('Mobile menu clicked');
+            });
+        }
+
+        // Modal functionality
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
+        }
+
+        function switchModal(fromModalId, toModalId) {
+            closeModal(fromModalId);
+            setTimeout(() => {
+                openModal(toModalId);
+            }, 300); // Wait for close animation
+        }
+
+        // Close modal when clicking overlay
+        document.addEventListener('DOMContentLoaded', () => {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                const overlay = modal.querySelector('.modal-overlay');
+                if (overlay) {
+                    overlay.addEventListener('click', () => {
+                        const modalId = modal.id;
+                        closeModal(modalId);
+                    });
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    const activeModal = document.querySelector('.modal.active');
+                    if (activeModal) {
+                        closeModal(activeModal.id);
+                    }
+                }
+            });
+
+            // Handle form submissions
+            const authForms = document.querySelectorAll('.auth-form');
+            authForms.forEach(form => {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const formData = new FormData(form);
+                    const modalId = form.closest('.modal').id;
+                    
+                    // Here you would typically send the data to your server
+                    console.log('Form submitted:', Object.fromEntries(formData));
+                    
+                    // For demo purposes, show success message
+                    alert('Form submitted successfully!');
+                    closeModal(modalId);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+     body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #FFEB3B, #1a76ac, #ADD8E6, #1a76ac);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    color: white;
+}
+
+.logo img {
+    max-width: 100px;
+    
+    margin-bottom: 20px;
+    border-radius: 16px;
+}
+
+h4 {
+    font-size: 1.9em;
+    margin-bottom: 10px;
+}
+
+p {
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+p a {
+    color: #ADD8E6;
+    text-decoration: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.forgot-password {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.forgot-password a {
+    color: #ADD8E6;
+    text-decoration: none;
+}
+
+button {
+    padding: 10px;
+    background-color: #FFEB3B;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+button:hover {
+    background-color: #FFD700;
+}
+
+    </style>
+    
+</head>
+
+
+<body>
+  <div class="container">
+      <div class="logo">
+          <img th:src="@{/images/logos/school.png}" alt="Logo">
+      </div>
+      
+      
+      <div class="login-section">
+          <h4>Sign in into your account!</h4>
+          <p>Don't have an account? <a th:href="@{/register}">Register</a></p>
+          <form th:action="@{/login}" role="form" method="post">
+              <label for="username">Username</label>
+              <input type="text" id="username" name="username" placeholder="Enter your username" required>
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" placeholder="Enter your password" required>
+              <div class="forgot-password">
+                  
+              </div>
+              <button type="submit">Sign In</button>
+          </form>
+      </div>    
+      
+  </div>
+</body>
+</html>

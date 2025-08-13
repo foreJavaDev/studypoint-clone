@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyPoint - Student Dashboard</title>
+    <link rel="stylesheet" href="/css/StudentPage.CSS">
+    <style>
+        :root {
+            --navy-blue: #0a1929;
+            --light-blue: #4a90e2;
+            --orange: #ff6b35;
+            --black: #000000;
+            --white: #ffffff;
+            --gradient-primary: linear-gradient(135deg, #0a1929, #4a90e2, #1e3a8a);
+            --gradient-secondary: linear-gradient(135deg, #ff6b35, #ff8c42, #ffa500);
+            --gradient-accent: linear-gradient(135deg, #ff6b35, #ff8c42);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--gradient-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(10, 25, 41, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+                width: 100%;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            padding: 0.5rem 2rem;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-section img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text h2 {
+            color: var(--white);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo-text p {
+            color: var(--light-blue);
+            font-size: 0.9rem;
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--white);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--orange);
+            object-fit: cover;
+        }
+
+        .user-details h4 {
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .user-details p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .notification-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .notification-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .notification-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .logout-btn {
+            background: #dc3545;
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .logout-btn:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+
+        /* Main Layout */
+        .main-container {
+            margin-top: 80px;
+            display: flex;
+            min-height: calc(100vh - 80px);
+            position: relative;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: rgba(10, 25, 41, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem 1rem;
+            position: fixed;
+            height: calc(100vh - 80px);
+            overflow-y: auto;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-section {
+            margin-bottom: 2rem;
+        }
+
+        .nav-section h3 {
+            color: var(--orange);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            color: var(--white);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-item:hover {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(74, 144, 226, 0.2));
+            transform: translateX(8px);
+            border-color: var(--orange);
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .nav-item.active {
+            background: var(--gradient-accent);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+            border-color: var(--orange);
+            transform: translateX(5px);
+        }
+
+        .nav-item img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav-item span {
+            font-weight: 500;
+        }
+
+        /* Main Content Area */
+        .content-area {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            color: var(--white);
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+        }
+
+        /* Dashboard Cards */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .dashboard-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            transition: var(--transition);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(255, 107, 53, 0.3);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
+            border-color: var(--orange);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-icon img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .card-title {
+            color: var(--white);
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .card-content {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        /* Content Sections */
+        .content-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Home Section */
+        .welcome-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(10, 25, 41, 0.8), rgba(74, 144, 226, 0.8));
+            border-radius: var(--border-radius);
+            margin-bottom: 3rem;
+        }
+
+        .welcome-title {
+            font-size: 3rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .welcome-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        /* Programs Section */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .program-card {
+            background: linear-gradient(135deg, var(--navy-blue), var(--light-blue));
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .program-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+                height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .program-card:hover::before {
+            left: 100%;
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+            border-color: var(--orange);
+        }
+
+        .program-card h3 {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .program-card p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+        }
+
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+    overflow: hidden;
+            transition: var(--transition);
+}
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+}
+
+        .video-thumbnail {
+    width: 100%;
+            height: 200px;
+            background: var(--black);
+            position: relative;
+            overflow: hidden;
+}
+
+        .video-thumbnail video {
+    width: 100%;
+    height: 100%;
+            object-fit: cover;
+        }
+
+        .video-info {
+            padding: 1.5rem;
+        }
+
+        .video-title {
+            color: var(--white);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .video-duration {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Book Grid */
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .book-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .book-preview {
+            width: 100%;
+            height: 300px;
+                background: #f5f5f5;
+            }
+
+        .book-preview iframe {
+                width: 100%;
+                height: 100%;
+                border: none;
+            }
+
+            .book-info {
+            padding: 1.5rem;
+        }
+
+        .book-title {
+            color: var(--white);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .book-course {
+            color: rgba(255, 255, 255, 0.7);
+                font-size: 0.9rem;
+        }
+
+        /* Table Styles */
+        .table-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th {
+            background: var(--navy-blue);
+            color: var(--white);
+                padding: 1rem;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .table td {
+                padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white);
+        }
+
+        .table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Form Styles */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: 3rem;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-header img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+        }
+
+        .form-header h3 {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            font-size: 1rem;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--orange);
+        }
+
+        .submit-btn {
+            background: var(--gradient-primary);
+            color: var(--white);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+                width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Footer Styles */
+        footer {
+            background: rgba(10, 25, 41, 0.95);
+            color: var(--white);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 10;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            opacity: 0.3;
+            transform: translateY(20px);
+        }
+
+        .upperFooter {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 3rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .schoolLogo, .paymentLogo, .support, .contactUs {
+                text-align: center;
+            }
+
+        .schoolLogo img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--orange);
+        }
+
+        .paymentLogo img {
+            height: 40px;
+            margin: 0.5rem;
+        }
+
+        .supportUs, .contact {
+            background: var(--gradient-secondary);
+            color: var(--black);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            font-weight: bold;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .supportUl ul, .contactUl ul {
+            list-style: none;
+        }
+
+        .supportUl li, .contactUl li {
+            margin: 0.5rem 0;
+        }
+
+        .supportUl a, .contactUl a {
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .supportUl a:hover, .contactUl a:hover {
+            color: var(--orange);
+        }
+
+        .lowerFooter {
+            background: var(--navy-blue);
+            padding: 1rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .copyRight, .terms {
+            color: var(--white);
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: var(--transition);
+                z-index: 999;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .content-area {
+                margin-left: 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 1rem;
+            }
+
+            .logo-text h2 {
+                font-size: 1.2rem;
+            }
+
+            .user-details h4 {
+                font-size: 0.9rem;
+            }
+
+            .content-area {
+                padding: 1rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-title {
+                font-size: 2rem;
+            }
+
+            .programs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .video-grid, .book-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .upperFooter {
+                grid-template-columns: 1fr;
+                padding: 2rem 1rem;
+            }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        /* Overlay for mobile menu */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            display: none;
+        }
+
+        .sidebar-overlay.open {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="static/images/logos/logo.png" alt="StudyPoint Logo">
+                <div class="logo-text">
+                    <h2>STUDYPOINT</h2>
+                    <p>TUTORIALS</p>
+                    </div>
+                    </div>
+            
+            <div class="user-section">
+                <div class="user-info">
+                    <img src="static/images/icons/pretty.jpg" alt="User Avatar" class="user-avatar">
+                    <div class="user-details">
+                        <h4>Pretty Chivandire</h4>
+                        <p>Student #S010067</p>
+                </div>
+                    </div>
+                
+                <button class="notification-btn">
+                    <img src="static/images/icons/notification-bell.png" alt="Notifications">
+                </button>
+                
+                <button class="logout-btn">Logout</button>
+                
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">☰</button>
+                    </div>
+                </div>
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="nav-section">
+                <h3>Main Menu</h3>
+                <div class="nav-item active" onclick="showSection('home')">
+                    <img src="static/images/icons/register.png" alt="Home">
+                    <span>Dashboard</span>
+            </div>
+                <div class="nav-item" onclick="showSection('programs')">
+                    <img src="static/images/icons/register.png" alt="Programs">
+                    <span>Register Courses</span>
+                    </div>
+                <div class="nav-item" onclick="showSection('tutorials')">
+                    <img src="static/images/icons/free.png" alt="Tutorials">
+                    <span>Free Tutorials</span>
+                        </div>
+                <div class="nav-item" onclick="showSection('courses')">
+                    <img src="static/images/icons/onllineClasses.png" alt="Courses">
+                    <span>Online Courses</span>
+                        </div>
+                    </div>
+
+            <div class="nav-section">
+                <h3>Resources</h3>
+                <div class="nav-item" onclick="showSection('library')">
+                    <img src="static/images/icons/library.png" alt="Library">
+                    <span>Library</span>
+                        </div>
+                <div class="nav-item" onclick="showSection('payments')">
+                    <img src="static/images/icons/payments.png" alt="Payments">
+                    <span>My Payments</span>
+                        </div>
+                <div class="nav-item" onclick="showSection('testimonials')">
+                    <img src="static/images/icons/payments.png" alt="Testimonials">
+                    <span>Share Your Story</span>
+                        </div>
+                        </div>
+                    </nav>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            <!-- Home Section -->
+            <section id="home" class="content-section active">
+                <div class="page-header">
+                    <h1 class="page-title">Welcome Back!</h1>
+                    <p class="page-subtitle">Ready to continue your learning journey?</p>
+                        </div>
+
+                <div class="welcome-section">
+                    <h2 class="welcome-title">Ready to Get Started?</h2>
+                    <p class="welcome-subtitle">
+                        Welcome to The School Of Engineering! Head to your <strong>"Academic Progress"</strong> or 
+                        <strong>"Courses"</strong> to jump start on your course work.
+                    </p>
+                        </div>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card" onclick="showSection('programs')">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <img src="static/images/icons/register.png" alt="Register">
+                </div>
+                            <h3 class="card-title">Register Courses</h3>
+                    </div>
+                        <div class="card-content">
+                            <p>Browse and enroll in our comprehensive engineering courses. Choose from Nated Engineering or University programs.</p>
+                    </div>
+                </div>
+
+                    <div class="dashboard-card" onclick="showSection('tutorials')">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <img src="static/images/icons/free.png" alt="Free">
+                        </div>
+                            <h3 class="card-title">Free Tutorials</h3>
+                        </div>
+                        <div class="card-content">
+                            <p>Access high-quality video tutorials completely free. Learn at your own pace with our comprehensive library.</p>
+                    </div>
+                </div>
+                
+                    <div class="dashboard-card" onclick="showSection('library')">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <img src="static/images/icons/library.png" alt="Library">
+				            </div>
+                            <h3 class="card-title">Digital Library</h3>
+				        </div>
+                        <div class="card-content">
+                            <p>Access our extensive collection of engineering books and resources. Read online with our secure viewer.</p>
+				            </div>
+							            </div>
+
+                    <div class="dashboard-card" onclick="showSection('payments')">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <img src="static/images/icons/payments.png" alt="Payments">
+							         	</div>
+                            <h3 class="card-title">Payment History</h3>
+							    </div>
+                        <div class="card-content">
+                            <p>View your payment history and track your course enrollments. Manage your account and subscriptions.</p>
+							</div>
+				        </div>
+				    </div>
+            </section>
+               
+            <!-- Programs Section -->
+            <section id="programs" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Programs & Courses</h1>
+                    <p class="page-subtitle">Choose your learning path</p>
+			</div>
+		         
+                <div class="programs-grid">
+                    <div class="program-card" onclick="showNatedPrograms()">
+                        <h3>Nated Engineering</h3>
+                        <p>Comprehensive engineering programs covering Mechanical, Electrical, and Civil Engineering with practical training.</p>
+                    </div>
+                    <div class="program-card" onclick="showUniversityPrograms()">
+                        <h3>University Courses</h3>
+                        <p>Advanced university-level engineering courses designed for higher education and professional development.</p>
+                    </div>
+                 </div>
+
+                <!-- Nated Engineering Details -->
+                <div id="nated-programs" class="content-section" style="display: none;">
+                    <div class="page-header">
+                        <h1 class="page-title">Nated Engineering</h1>
+                        <p class="page-subtitle">Choose your specialization</p>
+                            </div>
+
+                    <div class="programs-grid">
+                        <div class="program-card" onclick="showMechanicalCourses()">
+                            <h3>Mechanical Engineering</h3>
+                            <p>Learn mechanical systems, thermodynamics, and manufacturing processes.</p>
+                        </div>
+                        <div class="program-card" onclick="showElectricalCourses()">
+                            <h3>Electrical Engineering</h3>
+                            <p>Study electrical circuits, power systems, and electronic devices.</p>
+                                    </div>
+                        <div class="program-card" onclick="showCivilCourses()">
+                            <h3>Civil Engineering</h3>
+                            <p>Explore structural design, construction management, and infrastructure development.</p>
+                                    </div>
+                                </div>
+
+                    <!-- Mechanical Engineering Courses -->
+                    <div id="mechanical-courses" class="content-section" style="display: none;">
+                        <div class="page-header">
+                            <h1 class="page-title">Mechanical Engineering Courses</h1> 
+                        </div>
+                        <div class="programs-grid">
+                            <div class="program-card">
+                                <h3>N1 Mechanical Engineering</h3>
+                                <p>Basic mechanical principles and workshop practice.</p>
+                                <div class="program-dropdown">
+                                    <a href="#">Engineering Mathematics</a>
+                                    <a href="#" onclick="event.preventDefault(); handleCourseClick('BoilerMakerTradeTheory', 'mechanicalN2')">Boiler Maker Trade Theory</a>
+                                    <a href="#">Engineering Science</a>
+                                    <a href="#">Mechanical Drawing</a>
+                                </div>
+                            </div>
+                            <div class="program-card">
+                                <h3>N2 Mechanical Engineering</h3>
+                                <p>Advanced mechanical systems and engineering drawing.</p>
+                            </div>
+                            <div class="program-card">
+                                <h3>N3 Mechanical Engineering</h3>
+                                <p>Thermodynamics and fluid mechanics.</p>
+                            </div>
+                            <div class="program-card">
+                                <h3>N4 Mechanical Engineering</h3>
+                                <p>Machine design and manufacturing processes.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Electrical Engineering Courses -->
+                    <div id="electrical-courses" class="content-section" style="display: none;">
+                        <div class="page-header">
+                            <h1 class="page-title">Electrical Engineering Courses</h1>
+                            <p class="page-subtitle">Select your course level</p>
+                 </div>
+                        <div class="programs-grid">
+                            <div class="program-card">
+                                <h3>N1 Electrical Engineering</h3>
+                                <p>Basic electrical principles and safety.</p>
+                        </div>
+                            <div class="program-card">
+                                <h3>N2 Electrical Engineering</h3>
+                                <p>Electrical circuits and electronics.</p>
+							    </div>
+                            <div class="program-card">
+                                <h3>N3 Electrical Engineering</h3>
+                                <p>Power systems and control engineering.</p>
+							    </div>
+                            <div class="program-card">
+                                <h3>N4 Electrical Engineering</h3>
+                                <p>Advanced electrical systems and automation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                    <!-- Civil Engineering Courses -->
+                    <div id="civil-courses" class="content-section" style="display: none;">
+                        <div class="page-header">
+                            <h1 class="page-title">Civil Engineering Courses</h1>
+                            <p class="page-subtitle">Select your course level</p>
+                        </div>
+                        <div class="programs-grid">
+                            <div class="program-card">
+                                <h3>N1 Civil Engineering</h3>
+                                <p>Basic construction principles and materials.</p>
+                                <div>
+                                    <ul>
+                                        <li><a>course 1</a></li>
+                                        <li><a>course 2</a></li>
+                                        <li><a>coure 3</a></li>
+                                        <li><a>course 4</a></li>
+                                        <li><a>course 5</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="program-card">
+                                <h3>N2 Civil Engineering</h3>
+                                <p>Structural analysis and design.</p>
+                                        </div>
+                            <div class="program-card">
+                                <h3>N3 Civil Engineering</h3>
+                                <p>Hydraulics and transportation engineering.</p>
+                                    </div>
+                            <div class="program-card">
+                                <h3>N4 Civil Engineering</h3>
+                                <p>Advanced structural design and project management.</p>
+                                        </div>
+                                    </div>
+                                        </div>
+                                    </div>
+            </section>
+
+            <!-- Tutorials Section -->
+            <section id="tutorials" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Free Tutorials</h1>
+                    <p class="page-subtitle">Access all courses @ 100% off discount</p>
+                            </div>
+
+                <div class="video-grid">
+                    <div class="video-card">
+                        <div class="video-thumbnail">
+                            <video preload="metadata">
+                                <source src="/videos/sample-video.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                                            </div>
+                        <div class="video-info">
+                            <h4 class="video-title">Introduction to Mechanical Engineering</h4>
+                            <p class="video-duration">15:30</p>
+                                        </div>
+                                            </div>
+
+                    <div class="video-card">
+                        <div class="video-thumbnail">
+                            <video preload="metadata">
+                                <source src="/videos/sample-video2.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                                            </div>
+                        <div class="video-info">
+                            <h4 class="video-title">Electrical Circuit Basics</h4>
+                            <p class="video-duration">22:15</p>
+                                        </div>
+                                            </div>
+
+                    <div class="video-card">
+                        <div class="video-thumbnail">
+                            <video preload="metadata">
+                                <source src="/videos/sample-video3.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                                            </div>
+                        <div class="video-info">
+                            <h4 class="video-title">Chemical Process Fundamentals</h4>
+                            <p class="video-duration">18:45</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                        
+            <!-- Library Section -->
+            <section id="library" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Digital Library</h1>
+                    <p class="page-subtitle">Read all books online only (download disabled)</p>
+											</div>
+
+                <div class="book-grid">
+                    <div class="book-card">
+                        <div class="book-preview">
+                            <iframe src="/books/sample-book.pdf" frameborder="0"></iframe>
+                                        </div>
+                        <div class="book-info">
+                            <h4 class="book-title">Mechanical Engineering Fundamentals</h4>
+                            <p class="book-course">Mechanical Engineering</p>
+                                            </div>
+                                        </div>
+
+                    <div class="book-card">
+                        <div class="book-preview">
+                            <iframe src="/books/sample-book2.pdf" frameborder="0"></iframe>
+                                            </div>
+                        <div class="book-info">
+                            <h4 class="book-title">Electrical Engineering Principles</h4>
+                            <p class="book-course">Electrical Engineering</p>
+                                        </div>
+                                            </div>
+
+                    <div class="book-card">
+                        <div class="book-preview">
+                            <iframe src="/books/sample-book3.pdf" frameborder="0"></iframe>
+                                        </div>
+                        <div class="book-info">
+                            <h4 class="book-title">Chemical Engineering Processes</h4>
+                            <p class="book-course">Chemical Engineering</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+            <!-- Payments Section -->
+            <section id="payments" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Payment History</h1>
+                    <p class="page-subtitle">Track your course enrollments and payments</p>
+                            </div>
+
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date-Time</th>
+                                <th>Amount</th>
+                                <th>Course-Name</th>
+                                <th>Course-Field</th>
+                                <th>Reference</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>2025-01-15 10:30:00</td>
+                                <td>R500.00</td>
+                                <td>Mechanical Engineering</td>
+                                <td>N2</td>
+                                <td>REF001</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>2025-01-10 14:20:00</td>
+                                <td>R750.00</td>
+                                <td>Electrical Engineering</td>
+                                <td>N3</td>
+                                <td>REF002</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>2025-01-05 09:15:00</td>
+                                <td>R600.00</td>
+                                <td>Chemical Engineering</td>
+                                <td>N4</td>
+                                <td>REF003</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </section>
+
+            <!-- Testimonials Section -->
+            <section id="testimonials" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Share Your Story</h1>
+                    <p class="page-subtitle">Tell us about your learning experience</p>
+                    </div>
+                    
+                <div class="form-container">
+                    <div class="form-header">
+                        <img src="static/images/icons/form.PNG" alt="Share Story">
+                        <h3>Share Your Experience</h3>
+                        <p>Help other students by sharing your learning journey</p>
+                        </div>
+
+                    <form action="/student/shareYourStory" method="post">
+                        <div class="form-group">
+                            <label for="story">Your Story</label>
+                            <textarea id="story" name="story" placeholder="Share your story here (max 100 words)..." maxlength="100"></textarea>
+                                </div>
+                        <button type="submit" class="submit-btn">Submit Story</button>
+                    </form>
+                            </div>
+            </section>
+
+            <!-- Online Courses Section -->
+            <section id="courses" class="content-section">
+                <div class="page-header">
+                    <h1 class="page-title">Online Courses</h1>
+                    <p class="page-subtitle">Live interactive learning sessions</p>
+                    </div>
+                
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <img src="static/images/icons/onllineClasses.png" alt="Online">
+                                    </div>
+                        <h3 class="card-title">No Available Live Courses</h3>
+                                </div>
+                    <div class="card-content">
+                        <p>We're currently preparing new live courses. Check back soon for interactive learning sessions with our expert instructors.</p>
+                                </div>
+                            </div>
+        </section>
+    </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="upperFooter">
+            <div class="schoolLogo">
+                <img src="static/images/logos/full.png" alt="School Logo">
+            </div>
+            <div class="paymentLogo">
+                <img src="static/images/logos/secure_payment.png" alt="Secure Payment">
+                <img src="static/images/logos/paystack.png" alt="Paystack">
+            </div>
+            <div class="support">
+                <div class="supportUs">
+                    <h3>Support</h3>
+                </div>
+                <div class="supportUl">
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Reporting</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="contactUs">
+                <div class="contact">
+                    <h3>Contact us</h3>
+                </div>
+                <div class="contactUl">
+                    <ul>
+                        <li>Email: <a href="mailto:info@studypoint.co.za">info@studypoint.co.za</a></li>
+                        <li>WhatsApp: <a href="tel:+27653293657">+27 65 3293 657</a></li>
+                        <li><a href="#">TikTok</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="lowerFooter">
+            <div class="copyRight">Copyright 2025 | Developed by C&L-Tronics</div>
+            <div class="terms">Terms of use | Privacy Policy</div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation Functions
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Update navigation active state
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Find and activate the clicked nav item
+            event.currentTarget.classList.add('active');
+
+            // Close mobile sidebar
+            if (window.innerWidth <= 1024) {
+                toggleSidebar();
+            }
+        }
+
+        function showNatedPrograms() {
+            showSection('programs');
+            document.getElementById('nated-programs').style.display = 'block';
+            // Hide all course-specific sections
+            document.getElementById('mechanical-courses').style.display = 'none';
+            document.getElementById('electrical-courses').style.display = 'none';
+            document.getElementById('civil-courses').style.display = 'none';
+        }
+
+        function showUniversityPrograms() {
+            alert('University programs coming soon!');
+        }
+
+        function showMechanicalCourses() {
+            showSection('programs');
+            document.getElementById('nated-programs').style.display = 'block';
+            document.getElementById('mechanical-courses').style.display = 'block';
+            document.getElementById('electrical-courses').style.display = 'none';
+            document.getElementById('civil-courses').style.display = 'none';
+        }
+
+        function showElectricalCourses() {
+            showSection('programs');
+            document.getElementById('nated-programs').style.display = 'block';
+            document.getElementById('mechanical-courses').style.display = 'none';
+            document.getElementById('electrical-courses').style.display = 'block';
+            document.getElementById('civil-courses').style.display = 'none';
+        }
+
+        function showCivilCourses() {
+            showSection('programs');
+            document.getElementById('nated-programs').style.display = 'block';
+            document.getElementById('mechanical-courses').style.display = 'none';
+            document.getElementById('electrical-courses').style.display = 'none';
+            document.getElementById('civil-courses').style.display = 'block';
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('open');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click handlers for dashboard cards
+            const dashboardCards = document.querySelectorAll('.dashboard-card');
+            dashboardCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const section = this.getAttribute('onclick');
+                    if (section) {
+                        eval(section);
+                    }
+                });
+            });
+
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', function(event) {
+                const sidebar = document.querySelector('.sidebar');
+                const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+                
+                if (window.innerWidth <= 1024 && 
+                    !sidebar.contains(event.target) && 
+                    !mobileMenuBtn.contains(event.target)) {
+                    sidebar.classList.remove('open');
+                    document.querySelector('.sidebar-overlay').classList.remove('open');
+                }
+            });
+
+            // Footer visibility based on scroll
+            const footer = document.querySelector('footer');
+            const contentArea = document.querySelector('.content-area');
+            
+            function checkScroll() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight;
+                
+                // Show footer only when near the bottom
+                if (scrollTop + windowHeight >= documentHeight - 100) {
+                    footer.style.opacity = '1';
+                    footer.style.transform = 'translateY(0)';
+                } else {
+                    footer.style.opacity = '0.3';
+                    footer.style.transform = 'translateY(20px)';
+                }
+            }
+
+            // Initial check
+            checkScroll();
+            
+            // Listen for scroll events
+            window.addEventListener('scroll', checkScroll);
+        });
+    </script>
+</body>
+</html>
+
+
+

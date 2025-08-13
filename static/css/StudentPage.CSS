@@ -1,0 +1,630 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+}
+
+header {
+    display: block;
+    max-height: 7rem;
+    width: 100%;
+    position: fixed;
+    z-index: 999;
+}
+
+.upperlayer {
+    height: 3rem;
+    width: 100%;
+    background: linear-gradient(#000000, #3533cd);
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    gap: 4vw;
+    align-items: center;
+}
+
+.notfMain {
+    height: 2.9em;
+    display: flex;
+    flex-direction: column;
+    padding: 0 1em;
+    align-items: center;
+    text-align: center;
+}
+
+.notfMain .icon {
+    height: 1.6em;
+    width: 3em;
+}
+
+.notfMain .icon img {
+    height: 100%;
+    width: 50%;
+}
+
+.notfMain .descr {
+    height: 1.3em;
+    text-align: center;
+    color: white;
+}
+
+.studDetailMain {
+    background-color: rgb(255, 255, 255);
+    height: 2.9em;
+    padding: 0 .5em;
+    border-radius: 50px;
+    display: flex;
+    gap: .5em;
+    align-items: center;
+}
+
+.studDetailMain .imgSect {
+    background-color: rgb(53, 51, 51);
+    height: 2.9em;
+    width: 2.8em;
+    border-radius: 50%;
+}
+
+.studDetailMain .imgSect img {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.studDetailMain .studName {
+    background-color: rgb(35, 66, 204);
+    height: 2.6em;
+    padding: .5em;
+    border-radius: 100px;
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+}
+
+.lowerlayer {
+    height: 5rem;
+    width: 100%;
+    background-color: #d9d9d9;
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.logoMain {
+    height: 5em;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.logoMain .logo {
+    height: 100%;
+    width: 100%;
+    padding: 0 .5rem;
+}
+
+.logoMain .logo img {
+    height: 6em;
+    margin-top: -1em;
+    width: 6em;
+}
+
+.logoMain .logoDescr {
+    height: 5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoMain .logoDescr .descr1 {
+    text-align: center;
+    font-size: 18px;
+}
+
+.logoMain .logoDescr .descri2 {
+    text-align: center;
+    font-size: 16px;
+    color: #0097b2;
+}
+
+.navMain2, .navMain1 {
+    height: 5em;
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+.navMain1 .containerNav {
+    padding: .5em;
+    padding-right: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    gap: .5em;
+    flex-wrap: wrap;
+}
+
+.navMain2 .containerNav {
+    padding: .5em;
+    padding-right: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    gap: .5em;
+    flex-wrap: wrap;
+}
+
+.navMain2 .containerNav .stud {
+    display: flex;
+    border-radius: 1rem;
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+}
+
+.navMain2 .containerNav .stud .studNumDescr {
+    padding: .2rem .6rem;
+    margin-right: -.5rem;
+    color: white;
+    border-start-start-radius: .5rem;
+    background-color: rgb(35, 66, 204);
+}
+
+.navMain2 .containerNav .stud .studNumObj {
+    padding: .2rem .6rem;
+    font-weight: bold;
+    border-radius: 1rem;
+    color: rgb(0, 0, 0);
+    border-start-start-radius: .5rem;
+    background-color: orange;
+}
+
+.navMain2 .containerNav .logout {
+    padding: .1rem .6rem;
+    border-radius: 1rem;
+    color: white;
+    border-start-start-radius: .5rem;
+    background-color: rgb(35, 66, 204);
+}
+
+.navMain1 .containerNav .overview,
+.navMain1 .containerNav .acaProg,
+.navMain1 .containerNav .searchbar {
+    background-color: #ffffff;
+    text-align: center;
+    padding: .1rem .6rem;
+    border-radius: 1rem;
+}
+
+main .headerBackgroundCover {
+    height: 8.1rem;
+    width: 100%;
+    background-color: #ffffff;
+}
+
+main {
+    width: 100%;
+    background-color: #d9d9d9;
+    margin-bottom: .15rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 80.5vh;
+}
+
+.ContentBackgroundCover {
+    width: 100%;
+    display: flex;
+    padding: 1rem;
+}
+
+.ContentBackgroundCover .stickyPanel {
+    margin-right: .15rem;
+    /* width: 12rem; */
+    background-color: #d9d9d9;
+    height: 100%; /* Make sticky panel height match the background image */
+}
+
+.ContentBackgroundCover .stickyPanel .mainSticky {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    height: 100%; /* Ensure it takes full height */
+}
+
+.mainSticky nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 1rem;
+    cursor: pointer;
+    background-color: 0.3s ease;
+    gap: 2rem;
+}
+
+.mainSticky nav .contentIcon {
+    height: 2.5rem;
+    width: 3rem;
+}
+
+.mainSticky nav .contentIcon img {
+    height: 100%;
+}
+
+.mainSticky nav .ContentDes {
+    background-color: #0097b2;
+    text-align: center;
+    padding-top: 5%;
+    border-radius: 1.5em;
+    color: rgb(255, 255, 255);
+    width: 8rem;
+}
+
+.mainSticky nav .ContentDes:hover{
+    background-color: orange; /* Light background color on hover */
+    color: #000000;
+}
+
+.Content {
+    padding-top: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#homeDiv .intro {
+    color: #ffffff;
+    position: relative;
+    top: 10%;
+    left: 5%;
+    font-size: x-large;
+    font-weight: bold;
+    height: fit-content;
+}
+
+#homeDiv .introDescr {
+    color: #ffffff;
+    position: relative;
+    top: 35%;
+    left: 10;
+    height: fit-content;
+}
+
+#homeDiv .introDescr p {
+    padding-right: 3%;
+}
+
+#homeDiv .introDescr p i {
+    color: orange;
+}
+
+#homeDiv .hide{
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.hideLower {
+    display: none;
+}
+
+#programsDiv{
+
+    display: none;
+    background: linear-gradient(135deg, rgb(1, 17, 43),rgb(1, 17, 43));
+    opacity: 0;
+    padding-top: 10%;
+    transition: opacity 0.5s  ease-in-out, transform 0.5s ease-in-out;
+    transform: translateY(20px);
+    
+                h1 {
+                    font-size: 3em;
+                    text-align: center;
+                    color: white;
+                    margin-bottom: 40px;
+                }
+
+            .course {
+                background: white;
+                width: fit-content;
+                text-align: center; 
+                color: black;
+                border: 2px solid yellow;
+                border-radius: 10px;
+                margin: 20px 0;
+                padding: 20px;
+                transition: transform 0.3s, background-color 0.3s, color 0.3s;
+            }
+
+            .course:hover {
+                transform: scale(1.05);
+                background-color: yellow;
+                color: black;
+            }
+
+            .course a {
+                text-decoration: none;
+                color: inherit;
+                font-size: 1.5em;
+            }
+        }
+
+        #programsDiv div{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            align-self: center;
+        }
+
+    #programsDiv.active{
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+footer {
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+.upperFooter {
+    background-color: #d9d9d9;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.5em 0;
+    justify-content: space-around;
+}
+
+.upperFooter > div {
+    flex-basis: 0%;
+    min-width: 250px;
+    text-align: center;
+}
+
+.schoolLogo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .1rem;
+}
+
+.schoolLogo .schoolLogo1 {
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    width: 7.2rem;
+    height: 7.2rem;
+    background-color: #ffffff;
+}
+
+.schoolLogo .schoolLogo1 img {
+    object-fit: cover;
+    max-width: 100%;
+    height: auto;
+}
+
+.paymentLogo .paystack, .paymentLogo .paystackKey {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    margin-top: 1rem;
+}
+
+.paymentLogo img {
+    height: auto;
+    max-width: 100%;
+}
+
+.paymentLogo .paystackKey img {
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    max-width: 100%;
+}
+
+.support, .contactUs {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.supportUs, .contact {
+    margin-top: .7rem;
+    width: 80%;
+    padding: .5em;
+    border-radius: 1rem;
+    background-color: orange;
+    text-align: center;
+}
+
+ul {
+    display: inline-block;
+    list-style: none;
+}
+
+.lowerFooter {
+    background-color: #0097b2;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.copyRight, .terms {
+    color: white;
+    flex: 1;
+    min-width: 150px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .upperlayer {
+        height: 4rem;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1rem;
+    }
+
+    .studDetailMain {
+        width: auto;
+        justify-content: flex-start;
+    }
+
+    .notfMain {
+        width: auto;margin-top: .5rem;
+    }
+
+    .notfMain .descr{
+        display: none;
+    }
+
+    .notfMain .icon{
+        height: 2.3rem;
+        width: 4rem;
+    }
+
+    .hideLower {
+        display: block;
+        position: static;
+        width: auto;
+        height: auto;
+        cursor: pointer;
+        margin-right: 1rem; /* Add margin to the right */
+    }
+
+    .hideLower img {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .lowerlayer {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 4.3rem;
+        right: 0.5rem;
+        z-index: 998;
+        background-color: white; /* Semi-transparent background */
+        width: 65%;
+        height: 18rem;
+        padding: 1rem;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
+    }
+
+    .lowerlayer.show {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .logoMain {
+        justify-content: center;
+    }
+
+    .navMain1, .navMain2 {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .navMain1 .containerNav{
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+
+    .navMain2 .containerNav {
+        flex-direction: column;
+        gap: 0.5rem;  
+    }
+
+    .navMain1 .containerNav .overview,
+    .navMain1 .containerNav .acaProg,
+    .navMain1 .containerNav .searchbar{
+        background-color: lightskyblue;
+    }
+
+    .ContentBackgroundCover {
+        flex-direction: row;
+        padding: 0.5rem;
+    }
+
+    .ContentBackgroundCover .stickyPanel {
+        margin-right: .15rem;
+        width: 10rem;
+        background-color: #d9d9d9;
+        height: 100%; /* Make sticky panel height match the background image */
+    }
+
+    .Content{
+        padding: 0.5rem;
+    }
+    main .headerBackgroundCover {
+    height: 4.1rem;
+    width: 100%;
+    background-color: #ffffff;
+}
+
+    .stickyPanel {
+        width: 20%;
+        margin-right: 0.5rem;
+        height: 100%; /* Match the height of the background image */
+    }
+
+    .mainSticky nav {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .mainSticky nav .ContentDes {
+        width: 100%;
+    }
+
+    #programsDiv{
+          border-radius: 1em; 
+    }
+
+    #programsDiv div .course #nated{
+        width: fit-content;
+    }
+
+    #homeDiv .intro {
+        font-size: large;
+        top: 5%;
+        left: 5%;
+    }
+
+
+}
+    #homeDiv .introDescr {
+        font-size: medium;
+        position: relative;
+    top: 45%;
+    left: 5;
+    }
+
+    #homeDiv.hide {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }  

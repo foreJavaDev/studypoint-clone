@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Page</title>
+    <style>
+                *, *::before, *::after {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                font-family: Arial, sans-serif;
+            }
+
+            html {
+                scroll-behavior: smooth;
+                scrollbar-width: thin;
+            }
+
+            header {
+                display: block;
+                max-height: 7rem;
+                width: 100%;
+                position: fixed;
+                z-index: 999;
+            }
+
+            .upperlayer {
+                height: 3rem;
+                width: 100%;
+                background: linear-gradient(#000000,rgb(6, 6, 88));
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: flex-end;
+                gap: 4vw;
+                align-items: center;
+            }
+
+            .lowerlayer {
+                height: 5rem;
+                width: 100%;
+                background-color: #d9d9d9;
+                justify-content:space-between;
+                display: flex;
+                flex-wrap: nowrap;
+            }
+
+            .logoMain {
+                margin-left: 5%;
+                height: 5em;
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            .logoMain .logo {
+                height: 100%;
+                width: 100%;
+                padding: 0 .5rem;
+            }
+
+            .logoMain .logo img {
+                height: 6em;
+                margin-top: -1em;
+                width: 6em;
+            }
+
+            .logoMain .logoDescr {
+                height: 5em;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .logoMain .logoDescr .descr1 {
+                text-align: center;
+                font-size: 18px;
+            }
+
+            .logoMain .logoDescr .descri2 {
+                text-align: center;
+                font-size: 16px;
+                color: #0097b2;
+            }
+
+            .navMain1 {
+                margin-right: 5%;
+                height: 5em;
+                display: flex;
+                text-align: center;
+                align-items: center;
+            }
+    
+            .navMain1 .containerNav .acaProg{
+                background-color: orange;
+                text-align: center;
+                padding: .1rem .6rem;
+                font-size: x-large;
+                border-radius: 1rem;
+            }
+
+            main .headerBackgroundCover {
+                height: 8.1rem;
+                width: 100%;
+                background-color: #ffffff;
+            }
+
+            main {
+                width: 100%;
+                background: rgb(3, 3, 39) ;
+                margin-bottom: .15rem;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                min-height: 80.5vh;
+            }
+
+            .backgroundCover{
+                width: 100%;
+                height: 13rem;
+            }
+
+            .contentTerms {
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                margin-left: 50%;
+                transform: translateX(-50%);
+                color: #ffffff;
+                gap: 5rem;
+                height: fit-content;
+
+            }
+            .contentTerms section .intro p{
+               padding: .4rem;
+            }
+
+            .contentTerms section div .summ{
+                color: orange;
+                
+            }
+            .contentTerms section div{
+                display: flex;
+                gap: 2rem;
+                flex-direction: column;
+                justify-content: space-around;
+            }
+
+            .contentTerms section div p span, 
+            .contentTerms section div div ol li span,
+            .contentTerms section div div ul li span{
+                font-weight: bold;
+                color: #0097b2;
+            }
+
+            .contentTerms section div div p{
+                text-align:left;
+            }
+            .contentTerms section div div ul {
+                list-style-type: disc; /* Ensures bullet points are shown */
+                color: white; /* Makes the bullet points white */
+                padding-left: 20px; /* Adds proper indentation for the list */
+            }
+
+            .contentTerms section div div ul li {
+                color: white; /* Ensures the text color is white (optional) */
+                margin-bottom: 40px; /* Adds spacing between list items */
+            }
+
+            .contentTerms section div p ul li{
+                color: white; /* Ensures the text color is white (optional) */
+                margin-bottom: 10px;
+            }
+
+            .contentTerms section div p ul {
+                list-style-type: disc; /* Ensures bullet points are shown */
+                color: white; /* Makes the bullet points white */
+                padding-left: 20px; /* Adds proper indentation for the list */
+            }
+
+            .contentTerms section div .e-intro{
+                text-align: center;
+                color: orange;
+            }
+
+            .contentTerms section div .i-intro{
+                text-align: center;
+                width: 100%;
+                opacity: 0;  
+                /* animation-name: sectionDivPop;
+                animation-duration: 1s;
+                animation-delay: 0s; */
+                transform: translateX(-50%);
+                /* animation-direction: normal; */
+                transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+                
+            }
+
+            .contentTerms section div .i-intro.animate-in {
+                opacity: 1; /* Become visible */
+                transform: translateX(0); /* Move to normal position */
+            }
+
+            .contentTerms section div .i-intro.animate-out {
+                opacity: 1; /* hide again */
+                transform: translateX(25%); /* Move slightly to the right */
+            }
+
+            .contentTerms section div .i-intro div{
+                border-radius: 50%;
+                margin-left: 50%;
+                transform: translateX(-50%);
+                background-color: rgb(255, 255, 255);
+                color: #0097b2;
+                font-weight: bold;
+                width: 6rem;
+                height: 6rem;
+            }
+
+            .contentTerms section .Conclusion{
+                margin-bottom: 7rem;
+            }
+          
+            
+
+            footer {
+                text-align: center;
+                width: 100%;
+                display: block;
+            }
+
+            .upperFooter {
+                background-color: #d9d9d9;
+                width: 100%;
+                display: flex;
+                flex-wrap: wrap;
+                padding: 0.5em 0;
+                justify-content: space-around;
+            }
+
+            .upperFooter > div {
+                flex-basis: 0%;
+                min-width: 250px;
+                text-align: center;
+            }
+
+            .schoolLogo {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: .1rem;
+            }
+
+            .schoolLogo .schoolLogo1 {
+                overflow: hidden;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                width: 7.2rem;
+                height: 7.2rem;
+                background-color: #ffffff;
+            }
+
+            .schoolLogo .schoolLogo1 img {
+                object-fit: cover;
+                max-width: 100%;
+                height: auto;
+            }
+
+            .paymentLogo .paystack, .paymentLogo .paystackKey {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                height: auto;
+                margin-top: 1rem;
+            }
+
+            .paymentLogo img {
+                height: auto;
+                max-width: 100%;
+            }
+
+            .paymentLogo .paystackKey img {
+                height: 2.5rem;
+                border-radius: 0.5rem;
+                max-width: 100%;
+            }
+
+            .support, .contactUs {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                flex-direction: column;
+                gap: .5rem;
+            }
+
+            .supportUs, .contact {
+                margin-top: .7rem;
+                width: 80%;
+                padding: .5em;
+                border-radius: 1rem;
+                background-color: orange;
+                text-align: center;
+            }
+
+            ul {
+                display: inline-block;
+                list-style: none;
+            }
+
+            .lowerFooter {
+                background-color: #0097b2;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                padding: 1rem;
+                flex-wrap: wrap;
+                align-items: center;
+            }
+
+            .copyRight, .terms {
+                color: white;
+                flex: 1;
+                min-width: 150px;
+                text-align: center;
+            }
+
+            @media (max-width: 768px) {
+                
+                .upperlayer {
+                    height: 4rem;
+                    background-color: #ffffff;
+                }
+
+                .lowerlayer {
+                    font-size: large;
+                    position: absolute;
+                    width: max-content;
+                    top: 2rem;
+                    left: 50%;
+                    gap: 5rem;
+                    z-index: 998;
+                    transform: translateX(-50%);
+                    border-radius: 20px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
+                }   
+
+                .lowerlayer .logoMain .logoDescr {
+                    display: none;
+                }
+
+                .lowerlayer .logoMain .logo img{
+                    height: 5em;
+                    margin-top: -1em;
+                    width: 5em;
+                }
+
+                .navMain1 .containerNav .acaProg{
+                    font-size:x-large;
+                    color: rgb(0, 0, 0);
+                    background-color: orange;
+                }
+
+            }
+
+            /* @keyframes sectionDivPop{
+
+                from{
+                    transform: translateX(-100%);
+                    opacity: 0;
+                }
+
+                to{
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            } */
+
+    </style>
+
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const elements = document.querySelectorAll('.i-intro');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Element is entering viewport
+                            entry.target.classList.add('animate-in');
+                            entry.target.classList.remove('animate-out');
+                        } else {
+                            // Element is leaving viewport
+                            if (entry.target.classList.contains('animate-in')) {
+                                entry.target.classList.add('animate-out');
+                                entry.target.classList.remove('animate-in');
+                            }
+                        }
+                    });
+                }, {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                });
+                
+                elements.forEach(element => {
+                    observer.observe(element);
+                });
+            });
+
+
+            document.addEventListener('DOMContentLoaded', function() {
+            // Handle fragment identifier if present
+            if(window.location.hash) {
+                const target = document.querySelector(window.location.hash);
+                if(target) {
+                    setTimeout(() => {
+                        const headerHeight = document.querySelector('header').offsetHeight;
+                        window.scrollTo({
+                            top: target.offsetTop - headerHeight,
+                            behavior: 'smooth'
+                        });
+                    }, 100);
+                }
+            }
+        });
+    </script>
+     
+</head>
+
+
+<body>
+
+    <!-- Header content remains the same -->
+    <header>
+        <div class="upperlayer"></div>
+        <div class="lowerlayer">
+            <div class="logoMain">
+                <div class="logo">
+                    <img src="images/logos/logo.png">
+                </div>
+                <div class="logoDescr">
+                    <div class="descr1">
+                        <h3>STUDYPOINT</h3>
+                    </div>
+                    <div class="descri2">
+                        <h3>TUTORIALS</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="navMain1">
+                <div class="containerNav">
+                    <div class="acaProg">Terms of use | Policy</div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <section  class="backgroundCover"></section>
+        <section class="contentTerms">
+
+            <section>
+                <div class="intro">
+                    <p><span>Owner :</span> General Council (StudyPoint.Ca.Za)</p>
+                    <p><span>Effective Date :</span> 3 /19 / 2025</p>
+                    <p><span>Last Reviewed Date :</span> 3 / 19 / 2025</p>
+                    <p><span>Summary</span> :
+                        Welcome to StudyPoint Tutorials! These Terms 
+                                of Use outline the rules and
+                                guidelines for using our platform. By accessing
+                                or using our services, 
+                                you agree to comply with these terms.
+                                Please read them carefully
+                    </p>
+                </div>
+            </section>
+
+            <section id="how-it-works">
+                <div class="How-It-Works">
+                    <div class="i-intro">
+                        <div>HOW IT WORKS</div>
+                    </div>
+                    <div>
+                        <p class="e-intro">Our platform is designed to provide a seamless learning experience. Here’s how it works:</p>
+                    </div>
+                    <div>
+                        <ol> 
+                            <li><span>Registration :</span><br><br> Create an account on our platform to access available courses.</li><br>
+                            <li><span>Course Selection :</span><br><br> Browse and select the course(s) you wish to enroll in.</li><br>
+                            <li><span>Payment :</span><br><br> Use our secure payment gateway (Paystack) to complete your purchase. Payments are valid for one (1) month from the date of purchase.</li><br>
+                            <li><span>Access : </span><br><br>Once payment is confirmed, you will gain immediate access to the course content.</li><br>
+                            <li><span>Learning :</span><br><br> Study at your own pace within the one-month validity period. After this period, access will expire, and you will need to renew your payment to continue.</li><br>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+                
+            <section id="payments">
+                <div class="Payment">
+                    <div class="i-intro">
+                        <div>PAYMENTS</div>
+                    </div>
+                    <div>
+                        <p class="e-intro">We are committed to providing you with a secure, reliable, and seamless learning experience. Below, we outline important details regarding payments, access, and the security of our platform.</p>
+                    </div>
+                    <div>
+                        <ul>
+                            <li><span>Payment Gateway : </span><br><br> payments on our platform are processed through Paystack, a trusted and secure payment gateway. Rest assured that your financial information is protected with industry-standard encryption and security measures. We do not store your payment details on our servers, ensuring your transactions are safe and scam-free.</li>
+                            <li><span>Payment Validity : </span><br><br>When you make a payment for any course, the payment is valid for one (1) month from the date of purchase. After this period, access to the course content will expire. To continue accessing the course, you will need to renew your payment.</li>
+                            <li><span>Error-Free Payments : </span><br><br>We strive to ensure that all payment transactions are processed smoothly and without errors. However, in the rare event of a payment issue, please contact our support team immediately at [Your Support Email] for assistance.</li>
+                            <li><span>Access to Content : </span><br><br>Access to course content is granted only after successful payment confirmation. If you encounter any issues accessing your purchased content, please reach out to our support team for prompt resolution.</li>
+                            <li><span>No Refunds for Expired Payments : </span><br><br>Please note that payments are non-refundable once the one-month validity period has expired. We encourage you to utilize the course materials within the allotted time to maximize your learning experience.</li>
+                        </ul>
+                    </div>
+                    <div class="summ"><p>By using our platform, you agree to these terms and acknowledge that <spa>StudyPoint</spa> is not liable for any loss of access due to expired payments or payment processing errors beyond our control.</p></div>
+                </div>
+            </section>
+
+            <section id="reporting">
+                <div class="Reporting">
+                    <div class="i-intro">
+                        <div>REPORTING</div>
+                    </div>
+                    <div>
+                        <p class="e-intro">We are committed to maintaining a safe and respectful learning environment. If you encounter any issues, including but not limited to:</p>
+                    </div>
+                    <div>
+                        <ul>
+                            <li>Technical errors or bugs on the platform.</li>
+                            <li> Unauthorized access or suspicious activity.</li>
+                            <li> Inappropriate content or behavior by other users.</li>
+                            <li> Payment-related issues or discrepancies.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p>Please report them immediately to our support team at <span><i>info@studypoint.co.za</i></span>. Provide as much detail as possible, including screenshots or error messages, to help us resolve the issue promptly.</p>
+                    </div>
+                    <div>
+                        <ul>
+                            <li><span>Response Time : </span><br><br> We aim to address all reports within [Insert Timeframe, e.g., 24-48 hours].</li>
+                            <li><span>Confidentiality :</span><br><br> All reports will be handled confidentially and in accordance with our Privacy Policy.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- <section>
+                <div class="Faq">
+                    <div class="i-intro">
+                        <div>FAQ</div>
+                    </div>
+                    <div>
+                        <p class="e-intro">Our FAQ section is designed to provide quick answers to common questions about our platform, courses, payments, and policies. While we strive to keep this information accurate and up-to-date, please note that:</p>
+                    </div>
+                    <div>
+                        <ul>
+                            <li>The FAQ section is for informational purposes only and does not replace the full Terms of Use or Privacy Policy.</li>
+                            <li>If you cannot find an answer to your question, please contact our support team at [Your Support Email] for further assistance.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section> -->
+
+            <section id="general-terms">
+                <div class="General-Terms">
+                    <div class="i-intro">
+                        <div>GENERAL TERMS</div>
+                    </div>
+                    <div>
+                        <ul>
+                            <li>By using our platform, you agree to abide by these Terms of Use and any additional policies we may implement.</li>
+                            <li>Failure to comply with these terms may result in restricted access to the platform or termination of your account.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="Conclusion">
+                    <p class="e-intro">Thank you for choosing StudyPoint Tuturials for your educational needs. If you have any questions or concerns, please contact us at <span><i>info@studypoint.co.za</i></span> </p>
+                </div>
+            </section>
+        </section>
+        
+    </main>
+    <footer>
+        <div class="upperFooter">
+            <div class="schoolLogo">
+                <div class="schoolLogo1">
+                    <img src="images/logos/full.png">
+                </div>
+            </div>
+            <div class="paymentLogo">
+                <div class="paystackKey">
+                    <img src="images/logos/secure_payment.png">
+                </div>
+                <div class="paystack">
+                    <img src="images/logos/paystack.png">
+                </div>
+            </div>
+            <div class="support">
+                <div class="supportUs">
+                    <h3>Access School</h3>
+                </div>
+                <div class="supportUl">
+                    <ul>
+                        <li><a>Login</a></li>
+                        <li>Register</li>
+                        <li>School Page</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="contactUs">
+                <div class="contact">
+                    <h3>Contact us</h3>
+                </div>
+                <div class="contactUl">
+                    <ul>
+                        <li>Email : <a>info.studypoint.co.za</a></li>
+                        <li>Whatsapp : <a>+27 65 3293 657</a></li>
+                        <li>Tiktok</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="lowerFooter">
+            <div class="copyRight">Copyright 2025 | Developed by C&L-Tronics</div>
+        </div>
+    </footer>
+</body>
+</html>
+
+
+

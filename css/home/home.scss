@@ -1,0 +1,254 @@
+#main {
+    .first-block {
+        aspect-ratio: 320 / 560;
+        position: relative;
+        isolation: isolate;
+
+        background-image: url(../../images/content/hexagon-mobile.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        .background-image {
+            width: 100%;
+            position: absolute;
+            isolation: isolate;
+        }
+
+        .left {
+            position: absolute;
+            top: 30%;
+            left: 10%;
+            background-color: #ffffffcf;
+            padding: 2rem 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 1px 1px 20px 0px;
+            backdrop-filter: blur(5px);
+            max-width: 17.5rem;
+
+            h1, p {
+                margin-bottom: 1rem;
+            }
+            
+            b {
+                color: #079086;
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            background-image: url(../../images/content/hexagon.png);
+            aspect-ratio: 1024 / 720;
+        }
+    }
+
+    .second-block {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 3rem 1rem;
+        justify-content: center;
+
+        @media screen and (min-width: 768px) {
+            padding: 6rem 1rem;
+            justify-content: space-evenly;
+        }
+
+
+        .card {
+            margin: 1.5rem;
+            position: relative;
+            width: 220px;
+            height: 320px;
+            background: #0a3cff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            font-weight: bold;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 1px 1px 20px lightgrey;
+            color: #fff;
+          }
+          
+          .card::before,
+          .card::after {
+            position: absolute;
+            content: "";
+            width: 20%;
+            height: 20%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            font-weight: bold;
+            background-color: lightblue;
+            transition: all 0.5s;
+          }
+          
+          .card::before {
+            top: 0;
+            right: 0;
+            border-radius: 0 15px 0 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: top center;
+          }
+          
+          .card::after {
+            bottom: 0;
+            left: 0;
+            border-radius: 0 100%  0 15px;
+            color: #fff;
+          }
+          
+          .card:hover::before,
+          .card:hover:after {
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            transition: all 0.5s;
+          }
+          
+          .card:hover:after {
+            content: "Mechanical Engineering";
+            text-align: center;
+          }
+
+
+        .card {
+            margin: 1rem;
+
+            &.card-1::before {
+                background-image: url(../../images/content/machines.jpg);
+            }
+
+            &:hover:after {
+                // background-image: url(../../images/content/machines.jpg);
+                // background-position: center;
+                // background-repeat: no-repeat;
+                // background-size: cover;
+                // background-position: top center;
+                background-color: #00000079;
+            }
+
+            &.card-2::before {
+                background-image: url(../../images/content/scientist.jpg);
+            }
+
+            &.card-3::before {
+                background-image: url(../../images/content/engineering.jpg);
+            }
+        }
+    }
+
+    .fourth-block {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 3rem 1rem;
+        justify-content: center;
+
+        @media screen and (min-width: 768px) {
+            padding: 10rem 1rem;
+            justify-content: space-evenly;
+        }
+
+        .card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 320px;
+            border-radius: 24px;
+            line-height: 1.6;
+            transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+          }
+          
+          .content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 24px;
+            padding: 36px;
+            border-radius: 22px;
+            color: #ffffff;
+            overflow: hidden;
+            background: #0a3cff;
+            transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+          }
+          
+          .content::before {
+            position: absolute;
+            content: "";
+            top: -4%;
+            left: 50%;
+            width: 90%;
+            height: 90%;
+            transform: translate(-50%);
+            background: #ced8ff;
+            z-index: -1;
+            transform-origin: bottom;
+          
+            border-radius: inherit;
+            transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+          }
+          
+          .content::after {
+            position: absolute;
+            content: "";
+            top: -8%;
+            left: 50%;
+            width: 80%;
+            height: 80%;
+            transform: translate(-50%);
+            background: #e7ecff;
+            z-index: -2;
+            transform-origin: bottom;
+            border-radius: inherit;
+            transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+          }
+          
+          .content svg {
+            width: 48px;
+            height: 48px;
+          }
+          
+          .content .para {
+            z-index: 1;
+            opacity: 1;
+            font-size: 18px;
+            transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+          }
+          
+          .content .link {
+            z-index: 1;
+            color: #fea000;
+            text-decoration: none;
+            font-family: inherit;
+            font-size: 16px;
+            transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+          }
+          
+          .content .link:hover {
+            text-decoration: underline;
+          }
+          
+          .card:hover {
+            transform: translate(0px, -16px);
+          }
+          
+          .card:hover .content::before {
+            rotate: -8deg;
+            top: 0;
+            width: 100%;
+            height: 100%;
+          }
+          
+          .card:hover .content::after {
+            rotate: 8deg;
+            top: 0;
+            width: 100%;
+            height: 100%;
+          }          
+    }
+}
