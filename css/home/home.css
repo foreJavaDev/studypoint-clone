@@ -5,6 +5,7 @@
   background-image: url(../../images/content/hexagon-mobile.png);
   background-position: center;
   background-repeat: no-repeat;
+  background-color: #079086;
   background-size: cover;
 }
 #main .first-block .background-image {
@@ -36,24 +37,32 @@
     aspect-ratio: 1024/720;
   }
 }
+/* Optimized second-block to prevent scrolling freeze */
 #main .second-block {
   display: flex;
   flex-wrap: wrap;
+    background-color: #079086;
   padding: 2rem 1rem;
   justify-content: center;
+  /* Remove performance-heavy properties that cause freezing */
+  transform: translateZ(0); /* Force hardware acceleration */
+  will-change: auto; /* Only change when needed */
 }
+
 @media screen and (min-width: 768px) {
   #main .second-block {
     padding: 4rem 1rem;
     justify-content: space-evenly;
   }
 }
+
+/* Optimized card animations to prevent scrolling freeze */
 #main .second-block .card {
   margin: 1.5rem;
   position: relative;
   width: 220px;
   height: 320px;
-  background: #0a3cff;
+  background: linear-gradient(135deg, #FFEB3B, #1a76ac, #ADD8E6, #079086);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,8 +71,14 @@
   border-radius: 15px;
   cursor: pointer;
   box-shadow: 1px 1px 20px lightgrey;
-  color: #fff;
+  color: rgb(3, 3, 39);
+  /* Performance optimizations to prevent freezing */
+  transform: translateZ(0); /* Force hardware acceleration */
+  will-change: transform; /* Only change transform property */
+  backface-visibility: hidden; /* Prevent flickering */
 }
+
+/* Smooth card flip effects with your existing transition behavior */
 #main .second-block .card::before,
 #main .second-block .card::after {
   position: absolute;
@@ -75,9 +90,10 @@
   justify-content: center;
   font-size: 25px;
   font-weight: bold;
-  background-color: lightblue;
-  transition: all 0.5s;
+  background-color: rgb(3, 3, 39);
+  transition: all 0.5s; /* Keep your exact transition timing */
 }
+
 #main .second-block .card::before {
   top: 0;
   right: 0;
@@ -87,45 +103,58 @@
   background-size: cover;
   background-position: top center;
 }
+
 #main .second-block .card::after {
   bottom: 0;
   left: 0;
   border-radius: 0 100% 0 15px;
   color: #fff;
 }
+
+/* Smooth hover effects that won't cause freezing */
 #main .second-block .card:hover::before,
-#main .second-block .card:hover:after {
+#main .second-block .card:hover::after {
   width: 100%;
   height: 100%;
   border-radius: 15px;
-  transition: all 0.5s;
+  transition: all 0.5s; /* Keep your exact transition timing */
 }
+
+/* Simple hover lift effect */
+#main .second-block .card:hover {
+  transform: translateY(-10px) translateZ(0); /* Simple lift without 3D rotation */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); /* Keep your exact transition */
+}
+
 #main .second-block .card:hover:after {
   content: "Mechanical Engineering";
   text-align: center;
+  background-color: rgba(0, 0, 0, 0.4745098039);
 }
-#main .second-block .card {
-  margin: 1rem;
-}
+
+/* Individual card background images */
 #main .second-block .card.card-1::before {
   background-image: url(../../images/content/machines.jpg);
 }
-#main .second-block .card:hover:after {
-  background-color: rgba(0, 0, 0, 0.4745098039);
-}
+
 #main .second-block .card.card-2::before {
   background-image: url(../../images/content/scientist.jpg);
 }
+
 #main .second-block .card.card-3::before {
   background-image: url(../../images/content/engineering.jpg);
 }
 
-/* Enhanced animations for existing cards */
+/* Enhanced animations for existing cards - optimized to prevent freezing */
 #main .second-block .card {
-  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); /* Keep your exact transition */
   animation: fadeInUp 0.8s ease-out;
+  /* Performance optimizations */
+  will-change: transform, opacity; /* Only change these properties */
 }
 
+/* Staggered animation delays - optimized timing to prevent freezing */
 #main .second-block .card:nth-child(1) {
   animation-delay: 0.1s;
 }
@@ -204,6 +233,7 @@
   display: flex;
   flex-wrap: wrap;
   padding: 2rem 1rem;
+  background-color: rgb(3, 3, 39);
   justify-content: center;
 }
 @media screen and (min-width: 768px) {
@@ -229,9 +259,10 @@
   gap: 24px;
   padding: 36px;
   border-radius: 22px;
-  color: #ffffff;
+  color: #075691;
+  
   overflow: hidden;
-  background: #0a3cff;
+  background: white;
   transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
 }
 #main .fourth-block .content::before {
@@ -242,7 +273,7 @@
   width: 90%;
   height: 90%;
   transform: translate(-50%);
-  background: #ced8ff;
+  background: #079086;
   z-index: -1;
   transform-origin: bottom;
   border-radius: inherit;
@@ -256,7 +287,7 @@
   width: 80%;
   height: 80%;
   transform: translate(-50%);
-  background: #e7ecff;
+  background: #1a76ac;
   z-index: -2;
   transform-origin: bottom;
   border-radius: inherit;
@@ -302,7 +333,7 @@
 /* Third Block - Hero Section */
 #main .third-block {
   padding: 3rem 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient( #079086, rgb(3, 3, 39), rgb(3, 3, 39), rgb(3, 3, 39));
   color: white;
 }
 
@@ -362,7 +393,7 @@
 /* Stats Section */
 #main .stats-section {
   padding: 3rem 1rem;
-  background: #f8f9fa;
+  background: linear-gradient(135deg,rgb(3, 3, 39) , rgb(3, 3, 39), rgb(3, 3, 39), rgb(3, 3, 39));
 }
 
 #main .stats-container {
@@ -410,7 +441,7 @@
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: #333;
+  color: rgb(3, 3, 39);
   animation: fadeInUp 1s ease-out;
 }
 
@@ -462,7 +493,7 @@
 /* CTA Section */
 #main .cta-section {
   padding: 3rem 1rem;
-  background: linear-gradient(135deg, #075691 0%, #079086 100%);
+  background-color: rgb(3, 3, 39);
   color: white;
 }
 
@@ -589,4 +620,27 @@
   #main .stat-number {
     font-size: 2.5rem;
   }
+}
+
+/* Optimize the gap between sections to prevent freezing */
+#main .first-block {
+  margin-bottom: 0;
+  /* Remove any margin that could cause layout shifts */
+  transform: translateZ(0); /* Force hardware acceleration */
+  will-change: auto; /* Only change when needed */
+}
+
+#main .second-block {
+  margin-top: 0;
+  /* Ensure no gap causes freezing */
+  transform: translateZ(0); /* Force hardware acceleration */
+  will-change: auto; /* Only change when needed */
+}
+
+/* Add smooth scrolling behavior specifically for this section */
+#main .first-block,
+#main .second-block {
+  scroll-behavior: auto;
+  /* Disable smooth scrolling that could cause freezing */
+  backface-visibility: hidden; /* Prevent flickering during scroll */
 }

@@ -83,7 +83,7 @@ header .fixed-header {
   justify-content: flex-start;
   flex-wrap: wrap;
   padding: 1rem;
-  background-color: rgba(7, 85, 145, 0.7529411765);
+  background:linear-gradient(#000000, rgb(6, 6, 88));
 }
 header .fixed-header .search-container {
   margin: 0 0.5rem;
@@ -209,7 +209,7 @@ footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #111212;
+  background-color: rgb(3, 3, 39);
   position: relative;
   margin-top: 10rem;
   padding-top: 10rem;
@@ -287,7 +287,7 @@ footer .bottom {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  background-color: #079086;
+  background-color: rgb(3, 3, 39);
   font-family: "Poppins", sans-serif;
   padding: 1rem;
 }
