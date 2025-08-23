@@ -10,6 +10,94 @@
     <link rel="stylesheet" href="./css/home/home.css">
 
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    
+    <style>
+        :root {
+            --navy-blue: rgb(3, 3, 39);
+            --teal: #079086;
+            --light-teal: rgba(7, 144, 134, 0.8);
+            --white: rgba(255, 255, 255, 0.6784313725);
+            --pure-white: #ffffff;
+            --black: #000000;
+            --gradient-primary: linear-gradient(135deg, rgb(3, 3, 39), #079086, #0bb8a9);
+            --gradient-secondary: linear-gradient(135deg, #079086, #0bb8a9, #0dd4c3);
+            --gradient-accent: linear-gradient(135deg, #079086, #0bb8a9);
+            --gradient-hero: linear-gradient(135deg, rgb(3, 3, 39) 0%, #079086 50%, #0bb8a9 100%);
+            --shadow: 0 8px 32px rgba(7, 144, 134, 0.3);
+            --shadow-hover: 0 15px 45px rgba(7, 144, 134, 0.4);
+            --border-radius: 16px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Light Mode Variables */
+        :root[data-theme="light"] {
+            --navy-blue: #f8f9fa;
+            --teal: #079086;
+            --light-teal: rgba(7, 144, 134, 0.8);
+            --white: rgba(0, 0, 0, 0.8);
+            --pure-white: #ffffff;
+            --black: #000000;
+            --gradient-primary: linear-gradient(135deg, #f8f9fa, #e9ecef, #dee2e6);
+            --gradient-secondary: linear-gradient(135deg, #079086, #0bb8a9, #0dd4c3);
+            --gradient-accent: linear-gradient(135deg, #079086, #0bb8a9);
+            --gradient-hero: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 15px 45px rgba(0, 0, 0, 0.15);
+            --border-radius: 16px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle-btn {
+            background: var(--gradient-accent);
+            color: var(--pure-white);
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.5rem;
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow);
+        }
+
+        .theme-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Light mode body background */
+        body[data-theme="light"] {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: var(--black);
+        }
+
+        /* Light mode header */
+        body[data-theme="light"] header {
+            background: linear-gradient(135deg, rgba(248, 249, 250, 0.98), rgba(255, 255, 255, 0.95));
+        }
+
+        /* Light mode navigation */
+        body[data-theme="light"] nav ul li a {
+            color: var(--black);
+        }
+
+        /* Light mode logo text */
+        body[data-theme="light"] .name .tun,
+        body[data-theme="light"] .name .tut {
+            color: var(--black);
+        }
+    </style>
 </head>
 
 <body>
@@ -25,6 +113,9 @@
                 </div>
             </div>
             <div class="user-block">
+                <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
                 <a href="#" onclick="openModal('registerModal')">Register</a>
                 <a href="#" onclick="openModal('loginModal')">Login</a>
                 <a href="Admin.html">Admin</a>
@@ -452,6 +543,37 @@ From beginner to advanced, our platform grows with you at every step.
                 console.log('Mobile menu clicked');
             });
         }
+
+        // Theme toggle functionality
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.querySelector('.theme-icon');
+            const currentTheme = body.getAttribute('data-theme');
+            
+            if (currentTheme === 'light') {
+                body.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Initialize theme
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeIcon = document.querySelector('.theme-icon');
+            
+            if (savedTheme === 'light') {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.textContent = '☀️';
+            } else {
+                document.body.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+            }
+        });
 
         // Modal functionality
         function openModal(modalId) {

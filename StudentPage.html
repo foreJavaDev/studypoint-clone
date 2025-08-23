@@ -4,20 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StudyPoint - Student Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/StudentPage.CSS">
     <style>
         :root {
-            --navy-blue: #0a1929;
-            --light-blue: #4a90e2;
-            --orange: #ff6b35;
+            --navy-blue: rgb(3, 3, 39);
+            --teal: #079086;
+            --light-teal: rgba(7, 144, 134, 0.8);
+            --white: rgba(255, 255, 255, 0.6784313725);
+            --pure-white: #ffffff;
             --black: #000000;
-            --white: #ffffff;
-            --gradient-primary: linear-gradient(135deg, #0a1929, #4a90e2, #1e3a8a);
-            --gradient-secondary: linear-gradient(135deg, #ff6b35, #ff8c42, #ffa500);
-            --gradient-accent: linear-gradient(135deg, #ff6b35, #ff8c42);
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            --border-radius: 12px;
-            --transition: all 0.3s ease;
+            --gradient-primary: linear-gradient(135deg, rgb(3, 3, 39), #079086, #0bb8a9);
+            --gradient-secondary: linear-gradient(135deg, #079086, #0bb8a9, #0dd4c3);
+            --gradient-accent: linear-gradient(135deg, #079086, #0bb8a9);
+            --gradient-hero: linear-gradient(135deg, rgb(3, 3, 39) 0%, #079086 50%, #0bb8a9 100%);
+            --shadow: 0 8px 32px rgba(7, 144, 134, 0.3);
+            --shadow-hover: 0 15px 45px rgba(7, 144, 134, 0.4);
+            --border-radius: 16px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Light Mode Variables */
+        :root[data-theme="light"] {
+            --navy-blue: #f8f9fa;
+            --teal: #079086;
+            --light-teal: rgba(7, 144, 134, 0.8);
+            --white: rgba(0, 0, 0, 0.8);
+            --pure-white: #ffffff;
+            --black: #000000;
+            --gradient-primary: linear-gradient(135deg, #f8f9fa, #e9ecef, #dee2e6);
+            --gradient-secondary: linear-gradient(135deg, #079086, #0bb8a9, #0dd4c3);
+            --gradient-accent: linear-gradient(135deg, #079086, #0bb8a9);
+            --gradient-hero: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 15px 45px rgba(0, 0, 0, 0.15);
+            --border-radius: 16px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -27,22 +53,60 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--gradient-primary);
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--gradient-hero);
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Light mode body background */
+        body[data-theme="light"] {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: var(--black);
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(7, 144, 134, 0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(3, 3, 39, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(11, 184, 169, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Light mode background */
+        body[data-theme="light"]::before {
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(7, 144, 134, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(248, 249, 250, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(11, 184, 169, 0.06) 0%, transparent 50%);
         }
 
         /* Header Styles */
         .header {
-            background: rgba(10, 25, 41, 0.95);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, rgba(3, 3, 39, 0.98), rgba(7, 144, 134, 0.95));
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             position: fixed;
             top: 0;
-                width: 100%;
+            width: 100%;
             z-index: 1000;
             box-shadow: var(--shadow);
-            padding: 0.5rem 2rem;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid var(--teal);
+        }
+
+        /* Light mode header */
+        body[data-theme="light"] .header {
+            background: linear-gradient(135deg, rgba(248, 249, 250, 0.98), rgba(255, 255, 255, 0.95));
+            border-bottom: 2px solid var(--teal);
         }
 
         .header-content {
@@ -70,20 +134,39 @@
         }
 
         .logo-text h2 {
-            color: var(--white);
-            font-size: 1.5rem;
-            font-weight: bold;
+            color: var(--pure-white);
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: var(--text-shadow);
+            letter-spacing: 0.5px;
         }
 
         .logo-text p {
-            color: var(--light-blue);
-            font-size: 0.9rem;
+            color: var(--teal);
+            font-size: 1rem;
+            font-weight: 600;
+            text-shadow: var(--text-shadow);
+        }
+
+        /* Light mode logo text */
+        body[data-theme="light"] .logo-text p {
+            color: var(--teal);
+            text-shadow: var(--text-shadow);
+        }
+
+        body[data-theme="light"] .logo-text h2 {
+            color: var(--black);
         }
 
         .user-section {
             display: flex;
             align-items: center;
             gap: 1.5rem;
+        }
+
+        /* Light mode user section */
+        body[data-theme="light"] .user-section {
+            color: var(--black);
         }
 
         .user-info {
@@ -93,11 +176,16 @@
             color: var(--white);
         }
 
+        /* Light mode user info */
+        body[data-theme="light"] .user-info {
+            color: var(--black);
+        }
+
         .user-avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            border: 2px solid var(--orange);
+            border: 2px solid var(--teal);
             object-fit: cover;
         }
 
@@ -109,6 +197,15 @@
         .user-details p {
             font-size: 0.8rem;
             opacity: 0.8;
+        }
+
+        /* Light mode user details */
+        body[data-theme="light"] .user-details h4 {
+            color: var(--black);
+        }
+
+        body[data-theme="light"] .user-details p {
+            color: var(--black);
         }
 
         .notification-btn {
@@ -124,14 +221,56 @@
             transition: var(--transition);
         }
 
+        /* Light mode notification button */
+        body[data-theme="light"] .notification-btn {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
         .notification-btn:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: scale(1.05);
         }
 
+        /* Light mode notification button hover */
+        body[data-theme="light"] .notification-btn:hover {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
         .notification-btn img {
             width: 20px;
             height: 20px;
+        }
+
+        .theme-toggle-btn {
+            background: var(--gradient-accent);
+            color: var(--pure-white);
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.5rem;
+        }
+
+        /* Light mode theme toggle button */
+        body[data-theme="light"] .theme-toggle-btn {
+            background: var(--gradient-accent);
+            color: var(--pure-white);
+        }
+
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow);
+        }
+
+        .theme-icon {
+            font-size: 1.2rem;
         }
 
         .logout-btn {
@@ -143,6 +282,16 @@
             cursor: pointer;
             transition: var(--transition);
             font-weight: 500;
+        }
+
+        /* Light mode logout button */
+        body[data-theme="light"] .logout-btn {
+            color: var(--pure-white);
+        }
+
+        /* Light mode logout button */
+        body[data-theme="light"] .logout-btn {
+            color: var(--pure-white);
         }
 
         .logout-btn:hover {
@@ -158,16 +307,29 @@
             position: relative;
         }
 
+        /* Light mode main container */
+        body[data-theme="light"] .main-container {
+            color: var(--black);
+        }
+
         /* Sidebar Navigation */
         .sidebar {
             width: 280px;
-            background: rgba(10, 25, 41, 0.95);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(180deg, rgba(3, 3, 39, 0.98) 0%, rgba(7, 144, 134, 0.2) 100%);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             padding: 2rem 1rem;
             position: fixed;
             height: calc(100vh - 80px);
             overflow-y: auto;
             box-shadow: var(--shadow);
+            border-right: 2px solid var(--teal);
+        }
+
+        /* Light mode sidebar */
+        body[data-theme="light"] .sidebar {
+            background: linear-gradient(180deg, rgba(248, 249, 250, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%);
+            border-right: 2px solid var(--teal);
         }
 
         .nav-section {
@@ -175,12 +337,20 @@
         }
 
         .nav-section h3 {
-            color: var(--orange);
+            color: var(--teal);
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 1rem;
             padding-left: 1rem;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Light mode nav section headers */
+        body[data-theme="light"] .nav-section h3 {
+            color: var(--teal);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .nav-item {
@@ -199,17 +369,23 @@
             backdrop-filter: blur(10px);
         }
 
+        /* Light mode nav items */
+        body[data-theme="light"] .nav-item {
+            color: var(--black);
+            background: rgba(0, 0, 0, 0.05);
+        }
+
         .nav-item:hover {
-            background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(74, 144, 226, 0.2));
+            background: linear-gradient(135deg, rgba(7, 144, 134, 0.2), rgba(11, 184, 169, 0.2));
             transform: translateX(8px);
-            border-color: var(--orange);
-            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+            border-color: var(--teal);
+            box-shadow: 0 4px 20px rgba(7, 144, 134, 0.3);
         }
 
         .nav-item.active {
             background: var(--gradient-accent);
-            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
-            border-color: var(--orange);
+            box-shadow: 0 8px 25px rgba(7, 144, 134, 0.4);
+            border-color: var(--teal);
             transform: translateX(5px);
         }
 
@@ -231,12 +407,22 @@
             backdrop-filter: blur(10px);
         }
 
+        /* Light mode content area */
+        body[data-theme="light"] .content-area {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
         .page-header {
             margin-bottom: 2rem;
         }
 
+        /* Light mode page header */
+        body[data-theme="light"] .page-header {
+            color: var(--black);
+        }
+
         .page-title {
-            color: var(--white);
+            color: var(--pure-white);
             font-size: 2.5rem;
             font-weight: bold;
             margin-bottom: 0.5rem;
@@ -244,8 +430,18 @@
         }
 
         .page-subtitle {
-            color: rgba(255, 255, 255, 0.8);
+            color: var(--pure-white);
             font-size: 1.1rem;
+        }
+
+        /* Light mode page titles */
+        body[data-theme="light"] .page-title {
+            color: var(--black);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        body[data-theme="light"] .page-subtitle {
+            color: var(--black);
         }
 
         /* Dashboard Cards */
@@ -256,20 +452,27 @@
             margin-bottom: 3rem;
         }
 
+        /* Light mode dashboard grid */
+        body[data-theme="light"] .dashboard-grid {
+            color: var(--black);
+        }
+
         .dashboard-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
             border-radius: var(--border-radius);
             padding: 2rem;
             transition: var(--transition);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
+            border: 2px solid rgba(7, 144, 134, 0.2);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            box-shadow: var(--shadow);
         }
 
         .dashboard-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(255, 107, 53, 0.3);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.1));
-            border-color: var(--orange);
+            box-shadow: var(--shadow-hover);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(7, 144, 134, 0.1));
+            border-color: var(--teal);
         }
 
         .card-header {
@@ -279,14 +482,25 @@
             margin-bottom: 1.5rem;
         }
 
+        /* Light mode card header */
+        body[data-theme="light"] .card-header {
+            color: var(--black);
+        }
+
         .card-icon {
             width: 50px;
             height: 50px;
-            background: var(--gradient-secondary);
+            background: var(--gradient-accent);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 4px 15px rgba(7, 144, 134, 0.4);
+        }
+
+        /* Light mode card icon */
+        body[data-theme="light"] .card-icon {
+            background: var(--gradient-accent);
         }
 
         .card-icon img {
@@ -294,15 +508,29 @@
             height: 24px;
         }
 
+        /* Light mode card icon image */
+        body[data-theme="light"] .card-icon img {
+            filter: brightness(0) saturate(100%) invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+        }
+
         .card-title {
-            color: var(--white);
+            color: var(--pure-white);
             font-size: 1.3rem;
             font-weight: bold;
         }
 
         .card-content {
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--pure-white);
             line-height: 1.6;
+        }
+
+        /* Light mode card text */
+        body[data-theme="light"] .card-title {
+            color: var(--black);
+        }
+
+        body[data-theme="light"] .card-content {
+            color: var(--black);
         }
 
         /* Content Sections */
@@ -314,9 +542,24 @@
             display: none;
         }
 
+        /* Light mode content sections */
+        body[data-theme="light"] .content-section {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        /* Light mode content sections */
+        body[data-theme="light"] .content-section {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
         .content-section.active {
             display: block;
             animation: fadeIn 0.5s ease-in;
+        }
+
+        /* Light mode active content section */
+        body[data-theme="light"] .content-section.active {
+            background: rgba(0, 0, 0, 0.02);
         }
 
         @keyframes fadeIn {
@@ -328,22 +571,43 @@
         .welcome-section {
             text-align: center;
             padding: 4rem 2rem;
-            background: linear-gradient(135deg, rgba(10, 25, 41, 0.8), rgba(74, 144, 226, 0.8));
+            background: linear-gradient(135deg, rgba(3, 3, 39, 0.9), rgba(7, 144, 134, 0.8));
             border-radius: var(--border-radius);
             margin-bottom: 3rem;
+            border: 2px solid var(--teal);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            box-shadow: 0 10px 30px rgba(7, 144, 134, 0.2);
+        }
+
+        /* Light mode welcome section */
+        body[data-theme="light"] .welcome-section {
+            background: linear-gradient(135deg, rgba(248, 249, 250, 0.9), rgba(255, 255, 255, 0.8));
+            border: 2px solid var(--teal);
+            box-shadow: 0 10px 30px rgba(7, 144, 134, 0.1);
         }
 
         .welcome-title {
             font-size: 3rem;
-            color: var(--white);
+            color: var(--pure-white);
             margin-bottom: 1rem;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .welcome-subtitle {
             font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--pure-white);
             line-height: 1.6;
+        }
+
+        /* Light mode welcome text */
+        body[data-theme="light"] .welcome-title {
+            color: var(--black);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        body[data-theme="light"] .welcome-subtitle {
+            color: var(--black);
         }
 
         /* Programs Section */
@@ -353,15 +617,20 @@
             gap: 2rem;
         }
 
+        /* Light mode programs grid */
+        body[data-theme="light"] .programs-grid {
+            color: var(--black);
+        }
+
         .program-card {
-            background: linear-gradient(135deg, var(--navy-blue), var(--light-blue));
+            background: linear-gradient(135deg, var(--navy-blue), var(--teal));
             border-radius: var(--border-radius);
             padding: 2rem;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
             box-shadow: var(--shadow);
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(7, 144, 134, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -383,18 +652,18 @@
 
         .program-card:hover {
             transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
-            border-color: var(--orange);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--teal);
         }
 
         .program-card h3 {
-            color: var(--white);
+            color: var(--pure-white);
             font-size: 1.5rem;
             margin-bottom: 1rem;
         }
 
         .program-card p {
-            color: rgba(255, 255, 255, 0.9);
+            color: var(--pure-white);
             line-height: 1.6;
         }
 
@@ -405,12 +674,22 @@
             gap: 2rem;
         }
 
+        /* Light mode video grid */
+        body[data-theme="light"] .video-grid {
+            color: var(--black);
+        }
+
         .video-card {
             background: rgba(255, 255, 255, 0.1);
             border-radius: var(--border-radius);
     overflow: hidden;
             transition: var(--transition);
-}
+        }
+
+        /* Light mode video card */
+        body[data-theme="light"] .video-card {
+            background: rgba(0, 0, 0, 0.02);
+        }
 
         .video-card:hover {
             transform: translateY(-5px);
@@ -435,6 +714,11 @@
             padding: 1.5rem;
         }
 
+        /* Light mode video info */
+        body[data-theme="light"] .video-info {
+            color: var(--black);
+        }
+
         .video-title {
             color: var(--white);
             font-weight: bold;
@@ -446,6 +730,15 @@
             font-size: 0.9rem;
         }
 
+        /* Light mode video elements */
+        body[data-theme="light"] .video-title {
+            color: var(--black);
+        }
+
+        body[data-theme="light"] .video-duration {
+            color: rgba(0, 0, 0, 0.7);
+        }
+
         /* Book Grid */
         .book-grid {
             display: grid;
@@ -453,11 +746,21 @@
             gap: 2rem;
         }
 
+        /* Light mode book grid */
+        body[data-theme="light"] .book-grid {
+            color: var(--black);
+        }
+
         .book-card {
             background: rgba(255, 255, 255, 0.1);
             border-radius: var(--border-radius);
             overflow: hidden;
             transition: var(--transition);
+        }
+
+        /* Light mode book card */
+        body[data-theme="light"] .book-card {
+            background: rgba(0, 0, 0, 0.02);
         }
 
         .book-card:hover {
@@ -471,6 +774,11 @@
                 background: #f5f5f5;
             }
 
+        /* Light mode book preview */
+        body[data-theme="light"] .book-preview {
+            background: #f8f9fa;
+        }
+
         .book-preview iframe {
                 width: 100%;
                 height: 100%;
@@ -479,6 +787,11 @@
 
             .book-info {
             padding: 1.5rem;
+        }
+
+        /* Light mode book info */
+        body[data-theme="light"] .book-info {
+            color: var(--black);
         }
 
         .book-title {
@@ -492,11 +805,25 @@
                 font-size: 0.9rem;
         }
 
+        /* Light mode book elements */
+        body[data-theme="light"] .book-title {
+            color: var(--black);
+        }
+
+        body[data-theme="light"] .book-course {
+            color: rgba(0, 0, 0, 0.7);
+        }
+
         /* Table Styles */
         .table-container {
             background: rgba(255, 255, 255, 0.1);
             border-radius: var(--border-radius);
             overflow: hidden;
+        }
+
+        /* Light mode table container */
+        body[data-theme="light"] .table-container {
+            background: rgba(0, 0, 0, 0.02);
         }
 
         .table {
@@ -518,8 +845,24 @@
             color: var(--white);
         }
 
+        /* Light mode table elements */
+        body[data-theme="light"] .table th {
+            background: var(--teal);
+            color: var(--pure-white);
+        }
+
+        body[data-theme="light"] .table td {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            color: var(--black);
+        }
+
         .table tbody tr:hover {
             background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Light mode table hover */
+        body[data-theme="light"] .table tbody tr:hover {
+            background: rgba(0, 0, 0, 0.05);
         }
 
         /* Form Styles */
@@ -529,6 +872,11 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: var(--border-radius);
             padding: 3rem;
+        }
+
+        /* Light mode form container */
+        body[data-theme="light"] .form-container {
+            background: rgba(0, 0, 0, 0.02);
         }
 
         .form-header {
@@ -559,6 +907,15 @@
             font-weight: 500;
         }
 
+        /* Light mode form elements */
+        body[data-theme="light"] .form-header h3 {
+            color: var(--black);
+        }
+
+        body[data-theme="light"] .form-group label {
+            color: var(--black);
+        }
+
         .form-group textarea {
             width: 100%;
             min-height: 150px;
@@ -570,6 +927,13 @@
             font-size: 1rem;
             resize: vertical;
             font-family: inherit;
+        }
+
+        /* Light mode textarea */
+        body[data-theme="light"] .form-group textarea {
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.02);
+            color: var(--black);
         }
 
         .form-group textarea:focus {
@@ -590,6 +954,11 @@
                 width: 100%;
         }
 
+        /* Light mode submit button */
+        body[data-theme="light"] .submit-btn {
+            color: var(--pure-white);
+        }
+
         .submit-btn:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow);
@@ -605,6 +974,12 @@
             transition: opacity 0.5s ease, transform 0.5s ease;
             opacity: 0.3;
             transform: translateY(20px);
+        }
+
+        /* Light mode footer */
+        body[data-theme="light"] footer {
+            background: rgba(248, 249, 250, 0.95);
+            color: var(--black);
         }
 
         .upperFooter {
@@ -624,7 +999,7 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            border: 3px solid var(--orange);
+            border: 3px solid var(--teal);
         }
 
         .paymentLogo img {
@@ -642,6 +1017,13 @@
             box-shadow: var(--shadow);
         }
 
+        /* Light mode footer elements */
+        body[data-theme="light"] .supportUs,
+        body[data-theme="light"] .contact {
+            background: var(--gradient-secondary);
+            color: var(--black);
+        }
+
         .supportUl ul, .contactUl ul {
             list-style: none;
         }
@@ -657,7 +1039,18 @@
         }
 
         .supportUl a:hover, .contactUl a:hover {
-            color: var(--orange);
+            color: var(--teal);
+        }
+
+        /* Light mode footer links */
+        body[data-theme="light"] .supportUl a,
+        body[data-theme="light"] .contactUl a {
+            color: var(--black);
+        }
+
+        body[data-theme="light"] .supportUl a:hover,
+        body[data-theme="light"] .contactUl a:hover {
+            color: var(--teal);
         }
 
         .lowerFooter {
@@ -672,6 +1065,17 @@
             flex: 1;
             min-width: 150px;
             text-align: center;
+        }
+
+        /* Light mode lower footer */
+        body[data-theme="light"] .lowerFooter {
+            background: var(--teal);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body[data-theme="light"] .copyRight,
+        body[data-theme="light"] .terms {
+            color: var(--pure-white);
         }
 
         /* Responsive Design */
@@ -747,6 +1151,11 @@
             cursor: pointer;
         }
 
+        /* Light mode mobile menu button */
+        body[data-theme="light"] .mobile-menu-btn {
+            color: var(--black);
+        }
+
         @media (max-width: 768px) {
             .mobile-menu-btn {
                 display: block;
@@ -765,8 +1174,424 @@
             display: none;
         }
 
+        /* Light mode sidebar overlay */
+        body[data-theme="light"] .sidebar-overlay {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
         .sidebar-overlay.open {
             display: block;
+        }
+
+        /* Programs View Styles */
+        .programs-view {
+            display: block; /* Default to main programs view */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Light mode programs view */
+        body[data-theme="light"] .programs-view {
+            color: var(--black);
+        }
+
+        /* Light mode active programs view */
+        body[data-theme="light"] .programs-view.active {
+            color: var(--black);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .nav-item {
+            animation: slideInFromLeft 0.6s ease-out;
+        }
+
+        /* Light mode nav item */
+        body[data-theme="light"] .nav-item {
+            color: var(--black);
+        }
+
+        .dashboard-card {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Light mode dashboard card */
+        body[data-theme="light"] .dashboard-card {
+            color: var(--black);
+        }
+
+        .dashboard-card:nth-child(1) { animation-delay: 0.1s; }
+        .dashboard-card:nth-child(2) { animation-delay: 0.2s; }
+        .dashboard-card:nth-child(3) { animation-delay: 0.3s; }
+        .dashboard-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .program-card {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Light mode program card */
+        body[data-theme="light"] .program-card {
+            color: var(--black);
+        }
+
+        .program-card:nth-child(1) { animation-delay: 0.1s; }
+        .program-card:nth-child(2) { animation-delay: 0.2s; }
+        .program-card:nth-child(3) { animation-delay: 0.3s; }
+
+        .card-icon {
+            animation: pulse 2s infinite;
+        }
+
+        /* Light mode card icon */
+        body[data-theme="light"] .card-icon {
+            background: var(--gradient-accent);
+        }
+
+        .back-button:hover {
+            animation: pulse 0.6s ease-in-out;
+        }
+
+        .back-button {
+            background: var(--gradient-accent);
+            border-radius: var(--border-radius);
+            padding: 1rem 2rem;
+            margin-bottom: 2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--pure-white);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            border: none;
+            font-size: 1rem;
+        }
+
+        /* Light mode back button */
+        body[data-theme="light"] .back-button {
+            color: var(--pure-white);
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, var(--light-teal), var(--teal));
+            transform: translateX(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Light mode back button hover */
+        body[data-theme="light"] .back-button:hover {
+            background: linear-gradient(135deg, var(--light-teal), var(--teal));
+        }
+
+        .back-button span {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        /* Light mode back button span */
+        body[data-theme="light"] .back-button span {
+            color: var(--pure-white);
+        }
+
+        /* Course Details Popup */
+        .course-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(2px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .course-popup.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .course-popup-content {
+            background: linear-gradient(135deg, rgb(3, 3, 39), #079086);
+            border-radius: var(--border-radius);
+            padding: 3rem;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90%;
+            overflow-y: auto;
+            box-shadow: var(--shadow);
+            position: relative;
+            border: 2px solid var(--teal);
+        }
+
+        /* Light mode popup content */
+        body[data-theme="light"] .course-popup-content {
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border: 2px solid var(--teal);
+        }
+
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Light mode popup header */
+        body[data-theme="light"] .popup-header {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        .popup-title {
+            color: var(--white);
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        /* Light mode popup title */
+        body[data-theme="light"] .popup-title {
+            color: var(--black);
+        }
+
+        .popup-close {
+            background: var(--gradient-accent);
+            border: none;
+            color: var(--pure-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Light mode popup close button */
+        body[data-theme="light"] .popup-close {
+            background: var(--gradient-accent);
+            color: var(--pure-white);
+        }
+
+        .popup-close:hover {
+            background: linear-gradient(135deg, var(--light-teal), var(--teal));
+            transform: scale(1.1);
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Light mode popup close button hover */
+        body[data-theme="light"] .popup-close:hover {
+            background: linear-gradient(135deg, var(--light-teal), var(--teal));
+        }
+
+        .popup-body {
+            color: var(--pure-white);
+            line-height: 1.8;
+        }
+
+        /* Light mode popup body */
+        body[data-theme="light"] .popup-body {
+            color: var(--black);
+        }
+
+        /* Light mode popup body */
+        body[data-theme="light"] .popup-body {
+            color: var(--black);
+        }
+
+        .popup-body h3 {
+            color: var(--teal);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--teal);
+            padding-bottom: 0.5rem;
+        }
+
+        .popup-body p {
+            margin-bottom: 1rem;
+            color: var(--pure-white);
+        }
+
+        /* Light mode popup paragraphs */
+        body[data-theme="light"] .popup-body p {
+            color: var(--black);
+        }
+
+        /* Light mode popup paragraphs */
+        body[data-theme="light"] .popup-body p {
+            color: var(--black);
+        }
+
+        .popup-body ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+
+        .popup-body li {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--teal);
+            transition: var(--transition);
+        }
+
+        /* Light mode popup list items */
+        body[data-theme="light"] .popup-body li {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Light mode popup list items */
+        body[data-theme="light"] .popup-body li {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .popup-body li:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        /* Light mode popup list item hover */
+        body[data-theme="light"] .popup-body li:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .popup-body strong {
+            color: var(--teal);
+        }
+
+        /* Light mode popup body strong */
+        body[data-theme="light"] .popup-body strong {
+            color: var(--teal);
+        }
+
+        .popup-body a {
+            color: var(--teal);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        /* Light mode popup body links */
+        body[data-theme="light"] .popup-body a {
+            color: var(--teal);
+        }
+
+        .popup-body a:hover {
+            color: var(--light-teal);
+        }
+
+        /* Light mode popup body link hover */
+        body[data-theme="light"] .popup-body a:hover {
+            color: var(--light-teal);
+        }
+
+        /* Program Dropdown Styling */
+        .program-dropdown {
+            margin: 1.5rem 0;
+        }
+
+        /* Light mode program dropdown */
+        body[data-theme="light"] .program-dropdown {
+            color: var(--black);
+        }
+
+        .program-dropdown ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .program-dropdown li {
+            margin-bottom: 0.8rem;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 6px;
+            border-left: 3px solid var(--teal);
+            transition: var(--transition);
+        }
+
+        /* Light mode program dropdown list items */
+        body[data-theme="light"] .program-dropdown li {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Light mode program dropdown list items */
+        body[data-theme="light"] .program-dropdown li {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .program-dropdown li:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+            border-left-color: var(--teal);
+        }
+
+        /* Light mode program dropdown list item hover */
+        body[data-theme="light"] .program-dropdown li:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .program-dropdown a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Light mode program dropdown links */
+        body[data-theme="light"] .program-dropdown a {
+            color: var(--black);
+        }
+
+        .program-dropdown a:hover {
+            color: var(--teal);
+        }
+
+        /* Light mode program dropdown link hover */
+        body[data-theme="light"] .program-dropdown a:hover {
+            color: var(--teal);
         }
     </style>
 </head>
@@ -794,6 +1619,10 @@
                 
                 <button class="notification-btn">
                     <img src="static/images/icons/notification-bell.png" alt="Notifications">
+                </button>
+                
+                <button class="theme-toggle-btn" onclick="toggleTheme()" title="Toggle Theme">
+                    <span class="theme-icon">🌙</span>
                 </button>
                 
                 <button class="logout-btn">Logout</button>
@@ -869,13 +1698,13 @@
                         <div class="card-header">
                             <div class="card-icon">
                                 <img src="static/images/icons/register.png" alt="Register">
-                </div>
+                            </div>
                             <h3 class="card-title">Register Courses</h3>
-                    </div>
+                        </div>
                         <div class="card-content">
                             <p>Browse and enroll in our comprehensive engineering courses. Choose from Nated Engineering or University programs.</p>
+                        </div>
                     </div>
-                </div>
 
                     <div class="dashboard-card" onclick="showSection('tutorials')">
                         <div class="card-header">
@@ -920,25 +1749,31 @@
                 <div class="page-header">
                     <h1 class="page-title">Programs & Courses</h1>
                     <p class="page-subtitle">Choose your learning path</p>
-			</div>
-		         
-                <div class="programs-grid">
-                    <div class="program-card" onclick="showNatedPrograms()">
-                        <h3>Nated Engineering</h3>
-                        <p>Comprehensive engineering programs covering Mechanical, Electrical, and Civil Engineering with practical training.</p>
+                </div>
+                
+                <!-- Main Programs View -->
+                <div id="main-programs-view" class="programs-view">
+                    <div class="programs-grid">
+                        <div class="program-card" onclick="showNatedPrograms()">
+                            <h3>Nated Engineering</h3>
+                            <p>Comprehensive engineering programs covering Mechanical, Electrical, and Civil Engineering with practical training.</p>
+                        </div>
+                        <div class="program-card" onclick="showUniversityPrograms()">
+                            <h3>University Courses</h3>
+                            <p>Advanced university-level engineering courses designed for higher education and professional development.</p>
+                        </div>
                     </div>
-                    <div class="program-card" onclick="showUniversityPrograms()">
-                        <h3>University Courses</h3>
-                        <p>Advanced university-level engineering courses designed for higher education and professional development.</p>
-                    </div>
-                 </div>
+                </div>
 
                 <!-- Nated Engineering Details -->
-                <div id="nated-programs" class="content-section" style="display: none;">
+                <div id="nated-programs" class="programs-view" style="display: none;">
+                    <div class="back-button" onclick="goBackToMain()">
+                        <span>←</span> Back to Programs
+                    </div>
                     <div class="page-header">
                         <h1 class="page-title">Nated Engineering</h1>
                         <p class="page-subtitle">Choose your specialization</p>
-                            </div>
+                    </div>
 
                     <div class="programs-grid">
                         <div class="program-card" onclick="showMechanicalCourses()">
@@ -948,122 +1783,145 @@
                         <div class="program-card" onclick="showElectricalCourses()">
                             <h3>Electrical Engineering</h3>
                             <p>Study electrical circuits, power systems, and electronic devices.</p>
-                                    </div>
+                        </div>
                         <div class="program-card" onclick="showCivilCourses()">
                             <h3>Civil Engineering</h3>
                             <p>Explore structural design, construction management, and infrastructure development.</p>
-                                    </div>
-                                </div>
-
-                    <!-- Mechanical Engineering Courses -->
-                    <div id="mechanical-courses" class="content-section" style="display: none;">
-                        <div class="page-header">
-                            <h1 class="page-title">Mechanical Engineering Courses</h1> 
-                        </div>
-                        <div class="programs-grid">
-                            <div class="program-card">
-                                <h3>Mechanical Engineering</h3>
-
-                            <div class="program-card">
-                                <h3>N4</h3>
-                                <div class="program-dropdown">
-                                    <ul>
-                                        <li><a href="#">Engineering Mathematics</a></li>
-                                        <li><a href="#" onclick="event.preventDefault(); handleCourseClick('BoilerMakerTradeTheory', 'mechanicalN2')">Engineering Science</a></li>
-                                        <li><a href="#">Mechanical Drawing</a></li>
-                                        <li><a href="#">Mechanotechniques</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="program-card">
-                                <h3>N5</h3>
-                            </div>
-                            <div class="program-card">
-                                <h3>N6</h3>
-                            </div>
-
-                            </div>
-                            <div class="program-card">
-                                <h3>Fitting & Machining</h3>
-                                <p>Advanced mechanical systems and engineering drawing.</p>
-                            </div>
-                            <div class="program-card">
-                                <h3>Diesiel Trade</h3>
-                                <p>Thermodynamics and fluid mechanics.</p>
-                            </div>
-                            <div class="program-card">
-                                <h3>Motor  Trade</h3>
-                                <p>Machine design and manufacturing processes.</p>
-                            </div>
-                            <div class="program-card">
-                                <h3>Boiler Maker Trade</h3>
-                                <p>Machine design and manufacturing processes.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Electrical Engineering Courses -->
-                    <div id="electrical-courses" class="content-section" style="display: none;">
-                        <div class="page-header">
-                            <h1 class="page-title">Electrical Engineering Courses</h1>
-                            <p class="page-subtitle">Select your course level</p>
-                 </div>
-                        <div class="programs-grid">
-                            <div class="program-card">
-                                <h3>N1 Electrical Engineering</h3>
-                                <p>Basic electrical principles and safety.</p>
-                        </div>
-                            <div class="program-card">
-                                <h3>N2 Electrical Engineering</h3>
-                                <p>Electrical circuits and electronics.</p>
-							    </div>
-                            <div class="program-card">
-                                <h3>N3 Electrical Engineering</h3>
-                                <p>Power systems and control engineering.</p>
-							    </div>
-                            <div class="program-card">
-                                <h3>N4 Electrical Engineering</h3>
-                                <p>Advanced electrical systems and automation.</p>
                         </div>
                     </div>
                 </div>
 
-                    <!-- Civil Engineering Courses -->
-                    <div id="civil-courses" class="content-section" style="display: none;">
-                        <div class="page-header">
-                            <h1 class="page-title">Civil Engineering Courses</h1>
-                            <p class="page-subtitle">Select your course level</p>
+                <!-- Mechanical Engineering Courses -->
+                <div id="mechanical-courses" class="programs-view" style="display: none;">
+                    <div class="back-button" onclick="goBackToNated()">
+                        <span>←</span> Back to Nated Engineering
+                    </div>
+                    <div class="page-header">
+                        <h1 class="page-title">Mechanical Engineering Courses</h1>
+                        <p class="page-subtitle">Select your course level and specialization</p>
+                    </div>
+                    
+                    <div class="programs-grid">
+                        <div class="program-card" onclick="showMechanicalV1()">
+                            <h3>Mechanical-v1</h3>
+                            <p>Advanced mechanical systems and engineering drawing.</p>
                         </div>
-                        <div class="programs-grid">
-                            <div class="program-card">
-                                <h3>N1 Civil Engineering</h3>
-                                <p>Basic construction principles and materials.</p>
-                                <div>
-                                    <ul>
-                                        <li><a>course 1</a></li>
-                                        <li><a>course 2</a></li>
-                                        <li><a>coure 3</a></li>
-                                        <li><a>course 4</a></li>
-                                        <li><a>course 5</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="program-card">
-                                <h3>N2 Civil Engineering</h3>
-                                <p>Structural analysis and design.</p>
-                                        </div>
-                            <div class="program-card">
-                                <h3>N3 Civil Engineering</h3>
-                                <p>Hydraulics and transportation engineering.</p>
-                                    </div>
-                            <div class="program-card">
-                                <h3>N4 Civil Engineering</h3>
-                                <p>Advanced structural design and project management.</p>
-                                        </div>
-                                    </div>
-                                        </div>
-                                    </div>
+                        <div class="program-card">
+                            <h3>Fitting & Machining</h3>
+                            <p>Advanced mechanical systems and engineering drawing.</p>
+                        </div>
+                        <div class="program-card">
+                            <h3>Diesel Trade</h3>
+                            <p>Thermodynamics and fluid mechanics.</p>
+                        </div>
+                        <div class="program-card">
+                            <h3>Motor Trade</h3>
+                            <p>Machine design and manufacturing processes.</p>
+                        </div>
+                        <div class="program-card">
+                            <h3>Boiler Maker Trade</h3>
+                            <p>Machine design and manufacturing processes.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mechanical-v1 Courses -->
+                <div id="mechanical-v1-courses" class="programs-view" style="display: none;">
+                    <div class="back-button" onclick="goBackToMechanical()">
+                        <span>←</span> Back to Mechanical Engineering
+                    </div>
+                    <div class="page-header">
+                        <h1 class="page-title">Mechanical-v1 Courses</h1>
+                        <p class="page-subtitle">Select your course level</p>
+                    </div>
+                    
+                    <div class="programs-grid">
+                        <div class="program-card" onclick="showCourseDetails('N4', 'mechanical')">
+                            <h3>N4</h3>
+                            <p>Foundation level mechanical engineering courses</p>
+                        </div>
+                        <div class="program-card" onclick="showCourseDetails('N5', 'mechanical')">
+                            <h3>N5</h3>
+                            <p>Intermediate level mechanical engineering courses</p>
+                        </div>
+                        <div class="program-card" onclick="showCourseDetails('N6', 'mechanical')">
+                            <h3>N6</h3>
+                            <p>Advanced level mechanical engineering courses</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Electrical Engineering Courses -->
+                <div id="electrical-courses" class="programs-view" style="display: none;">
+                    <div class="back-button" onclick="goBackToNated()">
+                        <span>←</span> Back to Nated Engineering
+                    </div>
+                    <div class="page-header">
+                        <h1 class="page-title">Electrical Engineering Courses</h1>
+                        <p class="page-subtitle">Select your course level</p>
+                    </div>
+                    <div class="programs-grid">
+                        <div class="program-card" onclick="showCourseDetails('N1', 'electrical')">
+                            <h3>N1 Electrical Engineering</h3>
+                            <p>Basic electrical principles and safety.</p>
+                        </div>
+                        <div class="program-card" onclick="showCourseDetails('N2', 'electrical')">
+                            <h3>N2 Electrical Engineering</h3>
+                            <p>Electrical circuits and electronics.</p>
+                        </div>
+                        <div class="program-card" onclick="showCourseDetails('N3', 'electrical')">
+                            <h3>N3 Electrical Engineering</h3>
+                            <p>Power systems and control engineering.</p>
+                        </div>
+                        <div class="program-card" onclick="showCourseDetails('N4', 'electrical')">
+                            <h3>N4 Electrical Engineering</h3>
+                            <p>Advanced electrical systems and automation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Civil Engineering Courses -->
+                <div id="civil-courses" class="programs-view" style="display: none;">
+                    <div class="back-button" onclick="goBackToNated()">
+                        <span>←</span> Back to Nated Engineering
+                    </div>
+                    <div class="page-header">
+                        <h1 class="page-title">Civil Engineering Courses</h1>
+                        <p class="page-subtitle">Select your course level</p>
+                    </div>
+                    <div class="programs-grid">
+                        <div class="program-card" onclick="showCourseDetails('N1', 'civil')">
+                            <h3>N1 Civil Engineering</h3>
+                            <p>Basic construction principles and materials.</p>
+                        </div>
+                        <div class="program-card" onclick="showCourseDetails('N2', 'civil')">
+                            <h3>N2 Civil Engineering</h3>
+                            <p>Structural analysis and design.</p>
+                        </div>
+                        <div class="program-card" onclick="showCourseDetails('N3', 'civil')">
+                            <h3>N3 Civil Engineering</h3>
+                            <p>Hydraulics and transportation engineering.</p>
+                        </div>
+                        <div class="program-card" onclick="showCourseDetails('N4', 'civil')">
+                            <h3>N4 Civil Engineering</h3>
+                            <p>Advanced structural design and project management.</p>
+                        </div>
+                    </div>
+                </div>
             </section>
+
+            <!-- Course Details Popup -->
+            <div id="course-popup" class="course-popup">
+                <div class="course-popup-content">
+                    <div class="popup-header">
+                        <h2 id="popup-title">Course Details</h2>
+                        <button class="popup-close" onclick="closeCoursePopup()">×</button>
+                    </div>
+                    <div class="popup-body">
+                        <div id="popup-courses-list"></div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Tutorials Section -->
             <section id="tutorials" class="content-section">
@@ -1322,8 +2180,8 @@
 
         function showNatedPrograms() {
             showSection('programs');
+            document.getElementById('main-programs-view').style.display = 'none';
             document.getElementById('nated-programs').style.display = 'block';
-            // Hide all course-specific sections
             document.getElementById('mechanical-courses').style.display = 'none';
             document.getElementById('electrical-courses').style.display = 'none';
             document.getElementById('civil-courses').style.display = 'none';
@@ -1335,15 +2193,28 @@
 
         function showMechanicalCourses() {
             showSection('programs');
-            document.getElementById('nated-programs').style.display = 'block';
+            document.getElementById('main-programs-view').style.display = 'none';
+            document.getElementById('nated-programs').style.display = 'none';
             document.getElementById('mechanical-courses').style.display = 'block';
+            document.getElementById('mechanical-v1-courses').style.display = 'none';
+            document.getElementById('electrical-courses').style.display = 'none';
+            document.getElementById('civil-courses').style.display = 'none';
+        }
+
+        function showMechanicalV1() {
+            showSection('programs');
+            document.getElementById('main-programs-view').style.display = 'none';
+            document.getElementById('nated-programs').style.display = 'none';
+            document.getElementById('mechanical-courses').style.display = 'none';
+            document.getElementById('mechanical-v1-courses').style.display = 'block';
             document.getElementById('electrical-courses').style.display = 'none';
             document.getElementById('civil-courses').style.display = 'none';
         }
 
         function showElectricalCourses() {
             showSection('programs');
-            document.getElementById('nated-programs').style.display = 'block';
+            document.getElementById('main-programs-view').style.display = 'none';
+            document.getElementById('nated-programs').style.display = 'none';
             document.getElementById('mechanical-courses').style.display = 'none';
             document.getElementById('electrical-courses').style.display = 'block';
             document.getElementById('civil-courses').style.display = 'none';
@@ -1351,10 +2222,219 @@
 
         function showCivilCourses() {
             showSection('programs');
-            document.getElementById('nated-programs').style.display = 'block';
+            document.getElementById('main-programs-view').style.display = 'none';
+            document.getElementById('nated-programs').style.display = 'none';
             document.getElementById('mechanical-courses').style.display = 'none';
             document.getElementById('electrical-courses').style.display = 'none';
             document.getElementById('civil-courses').style.display = 'block';
+        }
+
+        function showCourseDetails(courseLevel, field) {
+            const popup = document.getElementById('course-popup');
+            const popupTitle = document.getElementById('popup-title');
+            const popupCoursesList = document.getElementById('popup-courses-list');
+
+            popup.classList.add('open');
+
+            if (field === 'mechanical') {
+                popupTitle.textContent = `Mechanical Engineering ${courseLevel}`;
+                if (courseLevel === 'N4') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Foundation Level Courses:</h3>
+                        <ul>
+                            <li><a href="#">Engineering Mathematics</a></li>
+                            <li><a href="#" onclick="event.preventDefault(); handleCourseClick('BoilerMakerTradeTheory', 'mechanicalN2')">Engineering Science</a></li>
+                            <li><a href="#">Mechanical Drawing</a></li>
+                            <li><a href="#">Mechanotechniques</a></li>
+                        </ul>
+                    `;
+                } else if (courseLevel === 'N5') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Intermediate Level Courses:</h3>
+                        <ul>
+                            <li><a href="#">Advanced Mathematics</a></li>
+                            <li><a href="#" onclick="event.preventDefault(); handleCourseClick('Thermodynamics', 'mechanicalN5')">Thermodynamics</a></li>
+                            <li><a href="#">Machine Design</a></li>
+                            <li><a href="#">Manufacturing Processes</a></li>
+                        </ul>
+                    `;
+                } else if (courseLevel === 'N6') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Advanced Level Courses:</h3>
+                        <ul>
+                            <li><a href="#">Advanced Thermodynamics</a></li>
+                            <li><a href="#" onclick="event.preventDefault(); handleCourseClick('FluidMechanics', 'mechanicalN6')">Fluid Mechanics</a></li>
+                            <li><a href="#">Advanced Machine Design</a></li>
+                            <li><a href="#">Project Management</a></li>
+                        </ul>
+                    `;
+                }
+            } else if (field === 'electrical') {
+                popupTitle.textContent = `Electrical Engineering ${courseLevel}`;
+                if (courseLevel === 'N1') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Basic Level Courses:</h3>
+                        <ul>
+                            <li><strong>Electrical Safety:</strong> Workplace safety and regulations</li>
+                            <li><strong>Basic Electronics:</strong> Fundamental electronic components</li>
+                            <li><strong>Electrical Principles:</strong> Ohm's law and basic circuits</li>
+                            <li><strong>Tools and Equipment:</strong> Electrical testing and measurement</li>
+                        </ul>
+                        <p><strong>Duration:</strong> 6 months</p>
+                        <p><strong>Prerequisites:</strong> Grade 10 Mathematics</p>
+                    `;
+                } else if (courseLevel === 'N2') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Intermediate Level Courses:</h3>
+                        <ul>
+                            <li><strong>Circuit Analysis:</strong> AC/DC circuit theory</li>
+                            <li><strong>Digital Electronics:</strong> Logic gates and digital systems</li>
+                            <li><strong>Electrical Machines:</strong> Motors, generators, and transformers</li>
+                            <li><strong>Control Systems:</strong> Basic automation principles</li>
+                        </ul>
+                        <p><strong>Duration:</strong> 6 months</p>
+                        <p><strong>Prerequisites:</strong> N1 Electrical Engineering</p>
+                    `;
+                } else if (courseLevel === 'N3') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Advanced Level Courses:</h3>
+                        <ul>
+                            <li><strong>Power Systems:</strong> High voltage and distribution</li>
+                            <li><strong>Advanced Control:</strong> PLC and automation systems</li>
+                            <li><strong>Industrial Electronics:</strong> Power electronics and drives</li>
+                            <li><strong>Communication Systems:</strong> Data transmission and networking</li>
+                        </ul>
+                        <p><strong>Duration:</strong> 6 months</p>
+                        <p><strong>Prerequisites:</strong> N2 Electrical Engineering</p>
+                    `;
+                } else if (courseLevel === 'N4') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Professional Level Courses:</h3>
+                        <ul>
+                            <li><strong>Advanced Power Systems:</strong> Grid management and stability</li>
+                            <li><strong>Smart Grid Technology:</strong> Modern power distribution</li>
+                            <li><strong>Renewable Energy:</strong> Solar, wind, and sustainable systems</li>
+                            <li><strong>Project Engineering:</strong> Large-scale electrical projects</li>
+                        </ul>
+                        <p><strong>Duration:</strong> 6 months</p>
+                        <p><strong>Prerequisites:</strong> N3 Electrical Engineering</p>
+                    `;
+                }
+            } else if (field === 'civil') {
+                popupTitle.textContent = `Civil Engineering ${courseLevel}`;
+                if (courseLevel === 'N1') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Basic Level Courses:</h3>
+                        <ul>
+                            <li><strong>Construction Materials:</strong> Concrete, steel, and timber properties</li>
+                            <li><strong>Basic Structures:</strong> Simple structural elements</li>
+                            <li><strong>Surveying:</strong> Land measurement and mapping</li>
+                            <li><strong>Construction Safety:</strong> Site safety and regulations</li>
+                        </ul>
+                        <p><strong>Duration:</strong> 6 months</p>
+                        <p><strong>Prerequisites:</strong> Grade 10 Mathematics</p>
+                    `;
+                } else if (courseLevel === 'N2') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Intermediate Level Courses:</h3>
+                        <ul>
+                            <li><strong>Structural Analysis:</strong> Load calculations and stress analysis</li>
+                            <li><strong>Concrete Design:</strong> Reinforced concrete structures</li>
+                            <li><strong>Soil Mechanics:</strong> Foundation engineering principles</li>
+                            <li><strong>Construction Management:</strong> Project planning and execution</li>
+                        </ul>
+                        <p><strong>Duration:</strong> 6 months</p>
+                        <p><strong>Prerequisites:</strong> N1 Civil Engineering</p>
+                    `;
+                } else if (courseLevel === 'N3') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Advanced Level Courses:</h3>
+                        <ul>
+                            <li><strong>Hydraulics:</strong> Water flow and drainage systems</li>
+                            <li><strong>Transportation Engineering:</strong> Roads, bridges, and traffic</li>
+                            <li><strong>Advanced Structures:</strong> Complex structural systems</li>
+                            <li><strong>Environmental Engineering:</strong> Sustainable construction practices</li>
+                        </ul>
+                        <p><strong>Duration:</strong> 6 months</p>
+                        <p><strong>Prerequisites:</strong> N2 Civil Engineering</p>
+                    `;
+                } else if (courseLevel === 'N4') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Professional Level Courses:</h3>
+                        <ul>
+                            <li><strong>Advanced Structural Design:</strong> Complex building systems</li>
+                            <li><strong>Project Management:</strong> Large-scale construction projects</li>
+                            <li><strong>Urban Planning:</strong> City infrastructure development</li>
+                            <li><strong>Quality Control:</strong> Construction standards and testing</li>
+                        </ul>
+                        <p><strong>Duration:</strong> 6 months</p>
+                        <p><strong>Prerequisites:</strong> N3 Civil Engineering</p>
+                    `;
+                }
+            }
+        }
+
+        function closeCoursePopup() {
+            document.getElementById('course-popup').classList.remove('open');
+        }
+
+        function handleCourseClick(courseName, courseId) {
+            // Handle course click events - you can add your logic here
+            console.log(`Course clicked: ${courseName} (ID: ${courseId})`);
+            // You can add navigation logic, course enrollment, etc.
+        }
+
+        // Close popup when clicking outside
+        document.addEventListener('click', function(event) {
+            const popup = document.getElementById('course-popup');
+            const popupContent = document.querySelector('.course-popup-content');
+            
+            if (popup.classList.contains('open') && 
+                !popupContent.contains(event.target) && 
+                event.target !== popup) {
+                closeCoursePopup();
+            }
+        });
+
+        function goBackToMain() {
+            document.getElementById('nated-programs').style.display = 'none';
+            document.getElementById('mechanical-courses').style.display = 'none';
+            document.getElementById('mechanical-v1-courses').style.display = 'none';
+            document.getElementById('electrical-courses').style.display = 'none';
+            document.getElementById('civil-courses').style.display = 'none';
+            document.getElementById('main-programs-view').style.display = 'block';
+        }
+
+        function goBackToNated() {
+            document.getElementById('nated-programs').style.display = 'block';
+            document.getElementById('mechanical-courses').style.display = 'none';
+            document.getElementById('mechanical-v1-courses').style.display = 'none';
+            document.getElementById('electrical-courses').style.display = 'none';
+            document.getElementById('civil-courses').style.display = 'none';
+        }
+
+        function goBackToMechanical() {
+            document.getElementById('nated-programs').style.display = 'none';
+            document.getElementById('mechanical-courses').style.display = 'block';
+            document.getElementById('mechanical-v1-courses').style.display = 'none';
+            document.getElementById('electrical-courses').style.display = 'none';
+            document.getElementById('civil-courses').style.display = 'none';
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.querySelector('.theme-icon');
+            const currentTheme = body.getAttribute('data-theme');
+            
+            if (currentTheme === 'light') {
+                body.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'light');
+            }
         }
 
         function toggleSidebar() {
@@ -1367,6 +2447,18 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
+            // Initialize theme
+            const savedTheme = localStorage.getItem('theme');
+            const themeIcon = document.querySelector('.theme-icon');
+            
+            if (savedTheme === 'light') {
+                document.body.setAttribute('data-theme', 'light');
+                themeIcon.textContent = '☀️';
+            } else {
+                document.body.removeAttribute('data-theme');
+                themeIcon.textContent = '🌙';
+            }
+            
             // Add click handlers for dashboard cards
             const dashboardCards = document.querySelectorAll('.dashboard-card');
             dashboardCards.forEach(card => {
