@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Popup Demo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      color: black;
+      box-sizing: border-box;
+    }
+
+    /* Course Details Popup Overlay */
+    .course-popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .course-popup.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .course-popup-content {
+      background: linear-gradient(135deg, rgb(3, 3, 39), #079086);
+      border-radius: 12px;
+      padding: 2rem;
+      width: 90%;
+      max-width: 700px;
+      max-height: 85%;
+      overflow-y: auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      position: relative;
+      color: white;
+    }
+
+    .course-popup-content h2,
+    .course-popup-content h3,
+    .course-popup-content li {
+      color: white;
+    }
+
+    .course-popup-content ul li {
+      margin: 5px 0;
+    }
+
+    /* Close Button */
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Course selector section */
+    .programs-view {
+      height: auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .program-card {
+      padding: 15px;
+      border: 1px solid #333;
+      cursor: pointer;
+      width: 200px;
+      text-align: center;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    .program-card:hover {
+      background: #f0f0f0;
+    }
+  </style>
+
+  <script>
+    function showCourseDetails(courseLevel, field) {
+      const popup = document.getElementById('course-popup');
+      const popupTitle = document.getElementById('popup-title');
+      const popupCoursesList = document.getElementById('popup-courses-list');
+
+      popup.classList.add("open"); // show popup
+
+      if (field === 'mechanical') {
+        popupTitle.textContent = `Mechanical Engineering ${courseLevel}`;
+        if (courseLevel === 'N4') {
+          popupCoursesList.innerHTML = `
+            <h3>Foundation Level Courses:</h3>
+            <ul>
+              <li>Engineering Mathematics</li>
+              <li>Engineering Science</li>
+              <li>Mechanical Drawing</li>
+              <li>Mechanotechniques</li>
+            </ul>
+          `;
+        } else if (courseLevel === 'N5') {
+          popupCoursesList.innerHTML = `
+            <h3>Intermediate Level Courses:</h3>
+            <ul>
+              <li>Advanced Mathematics</li>
+              <li>Thermodynamics</li>
+              <li>Machine Design</li>
+              <li>Manufacturing Processes</li>
+            </ul>
+          `;
+        } else if (courseLevel === 'N6') {
+          popupCoursesList.innerHTML = `
+            <h3>Advanced Level Courses:</h3>
+            <ul>
+              <li>Advanced Thermodynamics</li>
+              <li>Fluid Mechanics</li>
+              <li>Advanced Machine Design</li>
+              <li>Project Management</li>
+            </ul>
+          `;
+        }
+      }
+    }
+
+    function closeCoursePopup() {
+      document.getElementById('course-popup').classList.remove('open');
+    }
+
+    // Close popup when clicking outside content
+    document.addEventListener('click', function(event) {
+      const popup = document.getElementById('course-popup');
+      const popupContent = document.querySelector('.course-popup-content');
+
+      if (popup.classList.contains('open') && 
+          !popupContent.contains(event.target) && 
+          !event.target.closest('.program-card')) {
+        closeCoursePopup();
+      }
+    });
+  </script>
+</head>
+<body>
+  <main>
+    <div id="mechanical-v1-courses" class="programs-view" style="display: block;">
+      <div class="page-header">
+        <h1 class="page-title">Mechanical-v1 Courses</h1>
+        <p class="page-subtitle">Select your course level</p>
+      </div>
+
+      <div class="programs-grid">
+        <div class="program-card" onclick="showCourseDetails('N4', 'mechanical')">
+          <h3>N4</h3>
+          <p>Foundation level mechanical engineering courses</p>
+        </div>
+        <div class="program-card" onclick="showCourseDetails('N5', 'mechanical')">
+          <h3>N5</h3>
+          <p>Intermediate level mechanical engineering courses</p>
+        </div>
+        <div class="program-card" onclick="showCourseDetails('N6', 'mechanical')">
+          <h3>N6</h3>
+          <p>Advanced level mechanical engineering courses</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popup -->
+    <div id="course-popup" class="course-popup">
+      <div class="course-popup-content">
+        <button class="close-btn" onclick="closeCoursePopup()">✖</button>
+        <h2 id="popup-title"></h2>
+        <div id="popup-courses-list"></div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

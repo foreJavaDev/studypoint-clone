@@ -1346,6 +1346,8 @@
             visibility: visible;
         }
 
+     
+
         .course-popup-content {
             background: linear-gradient(135deg, rgb(3, 3, 39), #079086);
             border-radius: var(--border-radius);
@@ -1358,6 +1360,8 @@
             position: relative;
             border: 2px solid var(--teal);
         }
+
+   
 
         /* Light mode popup content */
         body[data-theme="light"] .course-popup-content {
@@ -1390,19 +1394,20 @@
             color: var(--black);
         }
 
-        .popup-close {
-            background: var(--gradient-accent);
+        .close-btn {
+            background: black;
             border: none;
+            top: 10px;
+            right: 15px;
             color: var(--pure-white);
             font-size: 1.5rem;
             cursor: pointer;
+            text-align: center;
             transition: var(--transition);
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            position: absolute;
+            height: 30px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             font-weight: bold;
         }
 
@@ -1851,6 +1856,15 @@
                     </div>
                 </div>
 
+                <!-- Popup -->
+                <div id="course-popup" class="course-popup">
+                    <div class="course-popup-content">
+                        <button class="close-btn" onclick="closeCoursePopup()">✖</button>
+                        <h2 id="popup-title"></h2>
+                        <div id="popup-courses-list"></div>
+                    </div>
+                </div>
+
                 <!-- Electrical Engineering Courses -->
                 <div id="electrical-courses" class="programs-view" style="display: none;">
                     <div class="back-button" onclick="goBackToNated()">
@@ -2240,7 +2254,7 @@
                 popupTitle.textContent = `Mechanical Engineering ${courseLevel}`;
                 if (courseLevel === 'N4') {
                     popupCoursesList.innerHTML = `
-                        <h3>Foundation Level Courses:</h3>
+                        <h3>Foundation Level Courses:</h3><br>
                         <ul>
                             <li><a href="#">Engineering Mathematics</a></li>
                             <li><a href="#" onclick="event.preventDefault(); handleCourseClick('BoilerMakerTradeTheory', 'mechanicalN2')">Engineering Science</a></li>
@@ -2384,16 +2398,16 @@
             // You can add navigation logic, course enrollment, etc.
         }
 
-        // Close popup when clicking outside
+         // Close popup when clicking outside content
         document.addEventListener('click', function(event) {
-            const popup = document.getElementById('course-popup');
-            const popupContent = document.querySelector('.course-popup-content');
-            
-            if (popup.classList.contains('open') && 
-                !popupContent.contains(event.target) && 
-                event.target !== popup) {
-                closeCoursePopup();
-            }
+        const popup = document.getElementById('course-popup');
+        const popupContent = document.querySelector('.course-popup-content');
+
+        if (popup.classList.contains('open') && 
+            !popupContent.contains(event.target) && 
+            !event.target.closest('.program-card')) {
+            closeCoursePopup();
+        }
         });
 
         function goBackToMain() {
