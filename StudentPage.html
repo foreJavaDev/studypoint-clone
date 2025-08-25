@@ -1407,7 +1407,6 @@
             width: 30px;
             position: absolute;
             height: 30px;
-            border-radius: 50%;
             font-weight: bold;
         }
 
@@ -1811,19 +1810,19 @@
                             <h3>Mechanical-v1</h3>
                             <p>Advanced mechanical systems and engineering drawing.</p>
                         </div>
-                        <div class="program-card">
+                        <div class="program-card" onclick="showFittingAndMachining()">
                             <h3>Fitting & Machining</h3>
                             <p>Advanced mechanical systems and engineering drawing.</p>
                         </div>
-                        <div class="program-card">
+                        <div class="program-card" onclick="showDieselTrade()">
                             <h3>Diesel Trade</h3>
                             <p>Thermodynamics and fluid mechanics.</p>
                         </div>
-                        <div class="program-card">
+                        <div class="program-card" onclick="showMotorTrade()">
                             <h3>Motor Trade</h3>
                             <p>Machine design and manufacturing processes.</p>
                         </div>
-                        <div class="program-card">
+                        <div class="program-card" onclick="showBoilerMakerTrade()">
                             <h3>Boiler Maker Trade</h3>
                             <p>Machine design and manufacturing processes.</p>
                         </div>
@@ -1856,14 +1855,29 @@
                     </div>
                 </div>
 
-                <!-- Popup -->
-                <div id="course-popup" class="course-popup">
-                    <div class="course-popup-content">
-                        <button class="close-btn" onclick="closeCoursePopup()">✖</button>
-                        <h2 id="popup-title"></h2>
-                        <div id="popup-courses-list"></div>
+                <!-- Fitting & Machining Courses -->
+                <div id="fitting-machining-courses" class="programs-view" style="display: none;">
+                    <div class="back-button" onclick="goBackToMechanical()">
+                        <span>←</span> Back to Mechanical Engineering
+                    </div>
+                    <div class="page-header">
+                        <h1 class="page-title">Fitting & Machining</h1>
+                        <p class="page-subtitle">Select your course level</p>
+                    </div>
+                    
+                    <div class="programs-grid">
+                        <div class="program-card" onclick="showCourseDetails('N2', 'fittingandmachining')">
+                            <h3>N2</h3>
+                            <p>Foundation level fitting & machining engineering courses</p>
+                        </div>
+                        <div class="program-card" onclick="showCourseDetails('N3', 'fittingandmachining')">
+                            <h3>N3</h3>
+                            <p>Intermediate level fitting and machining engineering courses</p>
+                        </div>
                     </div>
                 </div>
+
+               
 
                 <!-- Electrical Engineering Courses -->
                 <div id="electrical-courses" class="programs-view" style="display: none;">
@@ -2198,6 +2212,7 @@
             document.getElementById('nated-programs').style.display = 'block';
             document.getElementById('mechanical-courses').style.display = 'none';
             document.getElementById('electrical-courses').style.display = 'none';
+            document.getElementById('fitting-machining-courses').style.display = 'none';
             document.getElementById('civil-courses').style.display = 'none';
         }
 
@@ -2209,6 +2224,7 @@
             showSection('programs');
             document.getElementById('main-programs-view').style.display = 'none';
             document.getElementById('nated-programs').style.display = 'none';
+            document.getElementById('fitting-machining-courses').style.display = 'none';
             document.getElementById('mechanical-courses').style.display = 'block';
             document.getElementById('mechanical-v1-courses').style.display = 'none';
             document.getElementById('electrical-courses').style.display = 'none';
@@ -2220,13 +2236,26 @@
             document.getElementById('main-programs-view').style.display = 'none';
             document.getElementById('nated-programs').style.display = 'none';
             document.getElementById('mechanical-courses').style.display = 'none';
+            document.getElementById('fitting-machining-courses').style.display = 'none';
             document.getElementById('mechanical-v1-courses').style.display = 'block';
+            document.getElementById('electrical-courses').style.display = 'none';
+            document.getElementById('civil-courses').style.display = 'none';
+        }
+
+        function showFittingAndMachining() {
+            showSection('programs');
+            document.getElementById('main-programs-view').style.display = 'none';
+            document.getElementById('nated-programs').style.display = 'none';
+            document.getElementById('mechanical-courses').style.display = 'none';
+            document.getElementById('fitting-machining-courses').style.display = 'block';
+            document.getElementById('mechanical-v1-courses').style.display = 'none';
             document.getElementById('electrical-courses').style.display = 'none';
             document.getElementById('civil-courses').style.display = 'none';
         }
 
         function showElectricalCourses() {
             showSection('programs');
+            document.getElementById('fitting-machining-courses').style.display = 'none';
             document.getElementById('main-programs-view').style.display = 'none';
             document.getElementById('nated-programs').style.display = 'none';
             document.getElementById('mechanical-courses').style.display = 'none';
@@ -2236,6 +2265,7 @@
 
         function showCivilCourses() {
             showSection('programs');
+            document.getElementById('fitting-machining-courses').style.display = 'none';
             document.getElementById('main-programs-view').style.display = 'none';
             document.getElementById('nated-programs').style.display = 'none';
             document.getElementById('mechanical-courses').style.display = 'none';
@@ -2283,7 +2313,34 @@
                         </ul>
                     `;
                 }
-            } else if (field === 'electrical') {
+            } 
+            
+            else if(field === 'fittingandmachining'){
+                popupTitle.textContent = `Mechanical Engineering ${courseLevel}`;
+                if (courseLevel === 'N2') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Foundation Level Courses:</h3><br>
+                        <ul>
+                            <li><a href="#">Engineering Mathematics</a></li>
+                            <li><a href="#" onclick="event.preventDefault(); handleCourseClick('BoilerMakerTradeTheory', 'mechanicalN2')">Engineering Science</a></li>
+                            <li><a href="#">Engineering Drawing</a></li>
+                            <li><a href="#">Fitting & Machining</a></li>
+                        </ul>
+                    `;
+                } else if (courseLevel === 'N3') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Intermediate Level Courses:</h3>
+                        <ul>
+                            <li><a href="#">Engineering Mathematics</a></li>
+                            <li><a href="#" onclick="event.preventDefault(); handleCourseClick('BoilerMakerTradeTheory', 'mechanicalN2')">Engineering Science</a></li>
+                            <li><a href="#">Engineering Drawing</a></li>
+                            <li><a href="#">Mechanotechnology</a></li>
+                        </ul>
+                    `;
+                }
+            }
+            
+            else if (field === 'electrical') {
                 popupTitle.textContent = `Electrical Engineering ${courseLevel}`;
                 if (courseLevel === 'N1') {
                     popupCoursesList.innerHTML = `
