@@ -1877,6 +1877,71 @@
                     </div>
                 </div>
 
+                <!-- Motor Trade Courses -->
+                <div id="motor-trade-courses" class="programs-view" style="display: none;">
+                    <div class="back-button" onclick="goBackToMechanical()">
+                        <span>←</span> Back to Mechanical Engineering
+                    </div>
+                    <div class="page-header">
+                        <h1 class="page-title">Motor Trade</h1>
+                        <p class="page-subtitle">Select your course level</p>
+                    </div>
+                    
+                    <div class="programs-grid">
+                        <div class="program-card" onclick="showCourseDetails('N2', 'motortrade')">
+                            <h3>N2</h3>
+                            <p>Foundation level fitting & machining engineering courses</p>
+                        </div>
+                        <div class="program-card" onclick="showCourseDetails('N3', 'motortrade')">
+                            <h3>N3</h3>
+                            <p>Intermediate level fitting and machining engineering courses</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- diesel trade Courses -->
+                <div id="diesel-trade-courses" class="programs-view" style="display: none;">
+                    <div class="back-button" onclick="goBackToMechanical()">
+                        <span>←</span> Back to Mechanical Engineering
+                    </div>
+                    <div class="page-header">
+                        <h1 class="page-title">Diesel Trade</h1>
+                        <p class="page-subtitle">Select your course level</p>
+                    </div>
+                    
+                    <div class="programs-grid">
+                        <div class="program-card" onclick="showCourseDetails('N2', 'diesieltrade')">
+                            <h3>N2</h3>
+                            <p>Diesel Trade engineering courses</p>
+                        </div>
+                        <div class="program-card" onclick="showCourseDetails('N3', 'diesieltrade')">
+                            <h3>N3</h3>
+                            <p>Intermediate level Diesiel Trade engineering courses</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- boiler maker trade Courses -->
+                <div id="boiler-maker-trade-courses" class="programs-view" style="display: none;">
+                    <div class="back-button" onclick="goBackToMechanical()">
+                        <span>←</span> Back to Mechanical Engineering
+                    </div>
+                    <div class="page-header">
+                        <h1 class="page-title">Boiler aker Trade</h1>
+                        <p class="page-subtitle">Select your course level</p>
+                    </div>
+                    
+                    <div class="programs-grid">
+                        <div class="program-card" onclick="showCourseDetails('N2', 'boilermakertrade')">
+                            <h3>N2</h3>
+                            <p>Boiler aker Trade engineering courses</p>
+                        </div>
+                        <div class="program-card" onclick="showCourseDetails('N3', 'boilermakertrade')">
+                            <h3>N3</h3>
+                            <p>Intermediate level Boiler aker Trade engineering courses</p>
+                        </div>
+                    </div>
+                </div>
                
 
                 <!-- Electrical Engineering Courses -->
@@ -2005,18 +2070,18 @@
                 <div class="page-header">
                     <h1 class="page-title">Digital Library</h1>
                     <p class="page-subtitle">Read all books online only (download disabled)</p>
-											</div>
+				</div>
 
                 <div class="book-grid">
                     <div class="book-card">
                         <div class="book-preview">
                             <iframe src="/books/sample-book.pdf" frameborder="0"></iframe>
-                                        </div>
+                        </div>
                         <div class="book-info">
                             <h4 class="book-title">Mechanical Engineering Fundamentals</h4>
                             <p class="book-course">Mechanical Engineering</p>
-                                            </div>
-                                        </div>
+                            </div>
+                        </div>
 
                     <div class="book-card">
                         <div class="book-preview">
@@ -2211,9 +2276,14 @@
             document.getElementById('main-programs-view').style.display = 'none';
             document.getElementById('nated-programs').style.display = 'block';
             document.getElementById('mechanical-courses').style.display = 'none';
+            document.getElementById('boiler-maker-trade-courses').style.display = 'none';
             document.getElementById('electrical-courses').style.display = 'none';
             document.getElementById('fitting-machining-courses').style.display = 'none';
             document.getElementById('civil-courses').style.display = 'none';
+            document.getElementById('motor-trade-courses').style.display = 'none';
+            document.getElementById('diesel-trade-courses').style.display = 'none';
+
+
         }
 
         function showUniversityPrograms() {
@@ -2224,18 +2294,24 @@
             showSection('programs');
             document.getElementById('main-programs-view').style.display = 'none';
             document.getElementById('nated-programs').style.display = 'none';
+            document.getElementById('diesel-trade-courses').style.display = 'none';
             document.getElementById('fitting-machining-courses').style.display = 'none';
             document.getElementById('mechanical-courses').style.display = 'block';
             document.getElementById('mechanical-v1-courses').style.display = 'none';
+            document.getElementById('boiler-maker-trade-courses').style.display = 'none';
             document.getElementById('electrical-courses').style.display = 'none';
+            document.getElementById('motor-trade-courses').style.display = 'none';
             document.getElementById('civil-courses').style.display = 'none';
         }
 
         function showMechanicalV1() {
             showSection('programs');
+            document.getElementById('diesel-trade-courses').style.display = 'none';
             document.getElementById('main-programs-view').style.display = 'none';
             document.getElementById('nated-programs').style.display = 'none';
+            document.getElementById('motor-trade-courses').style.display = 'none';
             document.getElementById('mechanical-courses').style.display = 'none';
+            document.getElementById('boiler-maker-trade-courses').style.display = 'none';
             document.getElementById('fitting-machining-courses').style.display = 'none';
             document.getElementById('mechanical-v1-courses').style.display = 'block';
             document.getElementById('electrical-courses').style.display = 'none';
@@ -2244,10 +2320,55 @@
 
         function showFittingAndMachining() {
             showSection('programs');
+            document.getElementById('diesel-trade-courses').style.display = 'none';
             document.getElementById('main-programs-view').style.display = 'none';
             document.getElementById('nated-programs').style.display = 'none';
             document.getElementById('mechanical-courses').style.display = 'none';
+            document.getElementById('boiler-maker-trade-courses').style.display = 'none';
+            document.getElementById('motor-trade-courses').style.display = 'none';
             document.getElementById('fitting-machining-courses').style.display = 'block';
+            document.getElementById('mechanical-v1-courses').style.display = 'none';
+            document.getElementById('electrical-courses').style.display = 'none';
+            document.getElementById('civil-courses').style.display = 'none';
+        }
+
+        function showDiesielTrade() {
+            showSection('programs');
+            document.getElementById('diesel-trade-courses').style.display = 'block';
+            document.getElementById('motor-trade-courses').style.display = 'none';
+            document.getElementById('main-programs-view').style.display = 'none';
+            document.getElementById('nated-programs').style.display = 'none';
+            document.getElementById('boiler-maker-trade-courses').style.display = 'none';
+            document.getElementById('mechanical-courses').style.display = 'none';
+            document.getElementById('fitting-machining-courses').style.display = 'none';
+            document.getElementById('mechanical-v1-courses').style.display = 'none';
+            document.getElementById('electrical-courses').style.display = 'none';
+            document.getElementById('civil-courses').style.display = 'none';
+        }
+
+        function showMotorTrade() {
+            showSection('programs');
+            document.getElementById('diesel-trade-courses').style.display = 'none';
+            document.getElementById('main-programs-view').style.display = 'none';
+            document.getElementById('nated-programs').style.display = 'none';
+            document.getElementById('mechanical-courses').style.display = 'none';
+            document.getElementById('boiler-maker-trade-courses').style.display = 'none';
+            document.getElementById('motor-trade-courses').style.display = 'block';
+            document.getElementById('fitting-machining-courses').style.display = 'none';
+            document.getElementById('mechanical-v1-courses').style.display = 'none';
+            document.getElementById('electrical-courses').style.display = 'none';
+            document.getElementById('civil-courses').style.display = 'none';
+        }
+
+        function showBoilerMakerTrade(){
+            showSection('programs');
+            document.getElementById('boiler-maker-trade-courses').style.display = 'block';
+            document.getElementById('diesel-trade-courses').style.display = 'none';
+            document.getElementById('motor-trade-courses').style.display = 'none';
+            document.getElementById('main-programs-view').style.display = 'none';
+            document.getElementById('nated-programs').style.display = 'none';
+            document.getElementById('mechanical-courses').style.display = 'none';
+            document.getElementById('fitting-machining-courses').style.display = 'none';
             document.getElementById('mechanical-v1-courses').style.display = 'none';
             document.getElementById('electrical-courses').style.display = 'none';
             document.getElementById('civil-courses').style.display = 'none';
@@ -2255,6 +2376,9 @@
 
         function showElectricalCourses() {
             showSection('programs');
+            document.getElementById('boiler-maker-trade-courses').style.display = 'none';
+            document.getElementById('diesel-trade-courses').style.display = 'none';
+            document.getElementById('motor-trade-courses').style.display = 'none';
             document.getElementById('fitting-machining-courses').style.display = 'none';
             document.getElementById('main-programs-view').style.display = 'none';
             document.getElementById('nated-programs').style.display = 'none';
@@ -2265,10 +2389,13 @@
 
         function showCivilCourses() {
             showSection('programs');
+            document.getElementById('boiler-maker-trade-courses').style.display = 'none';
+            document.getElementById('diesel-trade-courses').style.display = 'none';
             document.getElementById('fitting-machining-courses').style.display = 'none';
             document.getElementById('main-programs-view').style.display = 'none';
             document.getElementById('nated-programs').style.display = 'none';
             document.getElementById('mechanical-courses').style.display = 'none';
+            document.getElementById('motor-trade-courses').style.display = 'none';
             document.getElementById('electrical-courses').style.display = 'none';
             document.getElementById('civil-courses').style.display = 'block';
         }
@@ -2339,7 +2466,82 @@
                     `;
                 }
             }
-            
+
+            else if(field === 'dieseltrade'){
+                popupTitle.textContent = `Mechanical Engineering ${courseLevel}`;
+                if (courseLevel === 'N2') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Foundation Level Courses:</h3><br>
+                        <ul>
+                            <li><a href="#">Engineering Mathematics</a></li>
+                            <li><a href="#" onclick="event.preventDefault(); handleCourseClick('BoilerMakerTradeTheory', 'mechanicalN2')">Engineering Science</a></li>
+                            <li><a href="#">echanical Drawing</a></li>
+                            <li><a href="#">Diesiel Trade Theory</a></li>
+                        </ul>
+                    `;
+                } else if (courseLevel === 'N3') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Intermediate Level Courses:</h3>
+                        <ul>
+                            <li><a href="#">Engineering Mathematics</a></li>
+                            <li><a href="#" onclick="event.preventDefault(); handleCourseClick('BoilerMakerTradeTheory', 'mechanicalN2')">Engineering Science</a></li>
+                            <li><a href="#">Engineering Drawing</a></li>
+                            <li><a href="#">Mechanotechnology / Diesel Trade Theory</a></li>
+                        </ul>
+                    `;
+                }
+            }
+
+            else if(field === 'motortrade'){
+                popupTitle.textContent = `Mechanical Engineering ${courseLevel}`;
+                if (courseLevel === 'N2') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Foundation Level Courses:</h3><br>
+                        <ul>
+                            <li><a href="#">Engineering Mathematics</a></li>
+                            <li><a href="#" onclick="event.preventDefault(); handleCourseClick('BoilerMakerTradeTheory', 'mechanicalN2')">Engineering Science</a></li>
+                            <li><a href="#">echanical Drawing</a></li>
+                            <li><a href="#">Diesiel Trade Theory</a></li>
+                        </ul>
+                    `;
+                } else if (courseLevel === 'N3') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Intermediate Level Courses:</h3>
+                        <ul>
+                            <li><a href="#">Engineering Mathematics</a></li>
+                            <li><a href="#" onclick="event.preventDefault(); handleCourseClick('BoilerMakerTradeTheory', 'mechanicalN2')">Engineering Science</a></li>
+                            <li><a href="#">Engineering Drawing</a></li>
+                            <li><a href="#">Mechanotechnology / Motor Trade Theory</a></li>
+                        </ul>
+                    `;
+                }
+            }
+
+            else if(field === 'boilermakertrade'){
+                popupTitle.textContent = `Mechanical Engineering ${courseLevel}`;
+                if (courseLevel === 'N2') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Foundation Level Courses:</h3><br>
+                        <ul>
+                            <li><a href="#">Engineering Mathematics</a></li>
+                            <li><a href="#" onclick="event.preventDefault(); handleCourseClick('BoilerMakerTradeTheory', 'mechanicalN2')">Engineering Science</a></li>
+                            <li><a href="#">echanical Drawing</a></li>
+                            <li><a href="#">Diesiel Trade Theory</a></li>
+                        </ul>
+                    `;
+                } else if (courseLevel === 'N3') {
+                    popupCoursesList.innerHTML = `
+                        <h3>Intermediate Level Courses:</h3>
+                        <ul>
+                            <li><a href="#">Engineering Mathematics</a></li>
+                            <li><a href="#" onclick="event.preventDefault(); handleCourseClick('BoilerMakerTradeTheory', 'mechanicalN2')">Engineering Science</a></li>
+                            <li><a href="#">Engineering Drawing</a></li>
+                            <li><a href="#">Mechanotechnology / Boiler Maker Trade Theory</a></li>
+                        </ul>
+                    `;
+                }
+            }
+
             else if (field === 'electrical') {
                 popupTitle.textContent = `Electrical Engineering ${courseLevel}`;
                 if (courseLevel === 'N1') {
