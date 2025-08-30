@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Payment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            100: '#d8e1ef',
+                            200: '#b1c3df',
+                            300: '#8aa5cf',
+                            400: '#6387bf',
+                            500: '#3c69af',
+                            600: '#30548c',
+                            700: '#243f69',
+                            800: '#182a46',
+                            900: '#0c1523'
+                        },
+                        accent: '#F59E0B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0c1523 0%, #182a46 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .blur-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.7;
+            overflow: hidden;
+        }
+        
+        .background-element {
+            position: absolute;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+            opacity: 0.6;
+        }
+        
+        .payment-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            max-width: 800px;
+            width: 100%;
+            z-index: 10;
+        }
+        
+        .payment-header {
+            background: linear-gradient(135deg, #3c69af 0%, #30548c 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .payment-body {
+            padding: 30px;
+        }
+        
+        .course-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #f8fafc;
+        }
+        
+        .price-tag {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3c69af;
+        }
+        
+        .btn-pay {
+            background: linear-gradient(135deg, #3c69af 0%, #30548c 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .btn-pay:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.5);
+        }
+        
+        .payment-methods {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        
+        .payment-icon {
+            width: 60px;
+            height: 40px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #3c69af;
+        }
+        
+        .security-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        .input-field {
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .input-field:focus {
+            border-color: #3c69af;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        
+        .label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #334155;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Blurred Background with Elements -->
+    <div class="blur-background">
+        <div class="background-element" style="top: 10%; left: 5%; width: 120px; height: 80px;"></div>
+        <div class="background-element" style="top: 15%; right: 10%; width: 100px; height: 100px;"></div>
+        <div class="background-element" style="top: 40%; left: 8%; width: 140px; height: 100px;"></div>
+        <div class="background-element" style="top: 60%; right: 15%; width: 110px; height: 90px;"></div>
+        <div class="background-element" style="bottom: 10%; left: 20%; width: 130px; height: 70px;"></div>
+        
+        <!-- Book Elements -->
+        <div class="background-element" style="top: 25%; left: 20%; width: 60px; height: 80px; transform: rotate(15deg);"></div>
+        <div class="background-element" style="top: 55%; left: 15%; width: 70px; height: 90px; transform: rotate(-10deg);"></div>
+        
+        <!-- Video Card Elements -->
+        <div class="background-element" style="top: 30%; right: 20%; width: 100px; height: 70px; border-radius: 15px;"></div>
+        <div class="background-element" style="bottom: 25%; right: 25%; width: 90px; height: 60px; border-radius: 15px;"></div>
+        
+        <!-- Instructor Elements -->
+        <div class="background-element" style="bottom: 15%; left: 40%; width: 80px; height: 80px; border-radius: 50%;"></div>
+        <div class="background-element" style="top: 20%; left: 35%; width: 70px; height: 70px; border-radius: 50%;"></div>
+    </div>
+
+    <!-- Payment Container -->
+    <div class="payment-container">
+        <div class="payment-header">
+            <h1 class="text-3xl font-bold">Complete Your Payment</h1>
+            <p class="mt-2">Secure payment processed through Paystack</p>
+        </div>
+        
+        <div class="payment-body">
+            <!-- Course Information -->
+            <div class="course-card">
+                <h2 class="text-xl font-bold text-navy-800">Boiler Maker Trade N2</h2>
+                <p class="text-gray-600">Master the fundamentals of boiler making with our comprehensive course</p>
+                
+                <div class="flex items-center mt-4">
+                    <span class="price-tag">R 2,500.00</span>
+                    <span class="ml-4 line-through text-gray-400">R 3,200.00</span>
+                    <span class="ml-4 bg-accent text-white px-2 py-1 rounded text-sm">22% OFF</span>
+                </div>
+            </div>
+            
+            <!-- Payment Form -->
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label class="label" for="email">Email Address</label>
+                    <input type="email" id="email" class="input-field" placeholder="your@email.com" required>
+                </div>
+                
+                <button type="submit" class="btn-pay">
+                    Pay Now - R 2,500.00
+                </button>
+            </form>
+            
+            <div class="security-note">
+                <i class="fas fa-lock text-green-500"></i>
+                <span>Your payment details are securely encrypted</span>
+            </div>
+            
+            <div class="payment-methods">
+                <div class="payment-icon">
+                    <i class="fab fa-cc-visa"></i>
+                </div>
+                <div class="payment-icon">
+                    <i class="fab fa-cc-mastercard"></i>
+                </div>
+                <div class="payment-icon">
+                    <i class="fab fa-cc-amex"></i>
+                </div>
+                <div class="payment-icon">
+                    <i class="fab fa-cc-discover"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const paymentForm = document.getElementById('paymentForm');
+            
+            paymentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simulate payment processing
+                const payBtn = document.querySelector('.btn-pay');
+                payBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                payBtn.disabled = true;
+                
+                // Simulate API call
+                setTimeout(function() {
+                    alert('Payment successful! You will be redirected to your course.');
+                    payBtn.innerHTML = 'Payment Successful!';
+                    payBtn.style.background = 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
+                }, 2000);
+            });
+            
+            // Format card number
+            const cardNumber = document.getElementById('cardNumber');
+            cardNumber.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 0) {
+                    value = value.match(/.{1,4}/g).join(' ');
+                }
+                e.target.value = value;
+            });
+            
+            // Format expiry date
+            const expiry = document.getElementById('expiry');
+            expiry.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 2) {
+                    value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                }
+                e.target.value = value;
+            });
+        });
+    </script>
+</body>
+</html>
