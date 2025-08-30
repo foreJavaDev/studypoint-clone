@@ -216,7 +216,7 @@
                 </div>
                 
                 <button type="submit" class="btn-pay">
-                    Pay Now - R 2,500.00
+                    Pay Now - R 100.00
                 </button>
             </form>
             
@@ -259,8 +259,16 @@
                     alert('Payment successful! You will be redirected to your course.');
                     payBtn.innerHTML = 'Payment Successful!';
                     payBtn.style.background = 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
+
+                    // Redirect after a short delay to show the success message
+                    setTimeout(function() {
+                        window.location.href = 'BoilerMakerTradeN2.html';
+                    }, 1500)
+                    
                 }, 2000);
-            });
+            
+            }
+        );
             
             // Format card number
             const cardNumber = document.getElementById('cardNumber');
