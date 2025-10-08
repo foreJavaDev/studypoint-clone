@@ -1,195 +1,426 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Course Popup Demo</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>StudyPoint — Modern University Style</title>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      color: black;
-      box-sizing: border-box;
+    :root{
+      --teal: #079086;
+      --teal-700: #057667;
+      --navy: #030327;
+      --navy-2: #06132a;
+      --soft-white: rgba(255,255,255,0.95);
+      --muted: rgba(255,255,255,0.72);
+      --accent-orange: #ff8a3d;
     }
 
-    /* Course Details Popup Overlay */
-    .course-popup {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
+    html,body{height:100%;}
+    body{
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      color:var(--soft-white);
+      background: radial-gradient(1200px 500px at 10% 10%, rgba(7,144,134,0.12), transparent 6%), linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 55%, #062f2b 100%);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
     }
 
-    .course-popup.open {
-      opacity: 1;
-      visibility: visible;
+    h1,h2,h3{font-family:'Playfair Display', serif}
+
+    /* hero decorative diagonal */
+    .hero-accent{
+      position: absolute; inset: 0; pointer-events:none; mix-blend-mode:overlay;
+      background: linear-gradient(120deg, rgba(7,144,134,0.06), rgba(8,70,80,0.04));
+      clip-path: polygon(0 0, 100% 0, 100% 65%, 0 40%);
     }
 
-    .course-popup-content {
-      background: linear-gradient(135deg, rgb(3, 3, 39), #079086);
-      border-radius: 12px;
-      padding: 2rem;
-      width: 90%;
-      max-width: 700px;
-      max-height: 85%;
-      overflow-y: auto;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-      position: relative;
-      color: white;
-    }
+    /* glassy card */
+    .glass{background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.06); backdrop-filter: blur(8px);} 
 
-    .course-popup-content h2,
-    .course-popup-content h3,
-    .course-popup-content li {
-      color: white;
-    }
+    /* modal visible states */
+    .modal-root{transition: opacity .24s ease, transform .24s ease;}
+    .modal-open{opacity:1; transform: translateY(0) scale(1); pointer-events:auto;}
+    .modal-closed{opacity:0; transform: translateY(8px) scale(.995); pointer-events:none;}
 
-    .course-popup-content ul li {
-      margin: 5px 0;
-    }
+    /* background blur when modal open */
+    .page-blur{filter: blur(6px) brightness(.9); transition: filter .25s ease;}
 
-    /* Close Button */
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 20px;
-      background: none;
-      border: none;
-      color: white;
-      cursor: pointer;
-    }
+    /* micro animations */
+    .fade-up{opacity:0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease}
+    .fade-up.in{opacity:1; transform: translateY(0)}
 
-    /* Course selector section */
-    .programs-view {
-      height: auto;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      padding: 20px;
-    }
+    .card-hover{transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s}
+    .card-hover:hover{transform: translateY(-8px); box-shadow: 0 20px 50px rgba(2,6,23,0.48)}
 
-    .program-card {
-      padding: 15px;
-      border: 1px solid #333;
-      cursor: pointer;
-      width: 200px;
-      text-align: center;
-      border-radius: 8px;
-      transition: background 0.3s;
-    }
+    /* focus states */
+    input:focus, select:focus, button:focus{outline: 2px solid rgba(7,144,134,0.18); outline-offset:2px}
 
-    .program-card:hover {
-      background: #f0f0f0;
+    /* small screens tweak for hero */
+    @media (max-width:768px){
+      .hero-accent{display:none}
     }
   </style>
-
-  <script>
-    function showCourseDetails(courseLevel, field) {
-      const popup = document.getElementById('course-popup');
-      const popupTitle = document.getElementById('popup-title');
-      const popupCoursesList = document.getElementById('popup-courses-list');
-
-      popup.classList.add("open"); // show popup
-
-      if (field === 'mechanical') {
-        popupTitle.textContent = `Mechanical Engineering ${courseLevel}`;
-        if (courseLevel === 'N4') {
-          popupCoursesList.innerHTML = `
-            <h3>Foundation Level Courses:</h3>
-            <ul>
-              <li>Engineering Mathematics</li>
-              <li>Engineering Science</li>
-              <li>Mechanical Drawing</li>
-              <li>Mechanotechniques</li>
-            </ul>
-          `;
-        } else if (courseLevel === 'N5') {
-          popupCoursesList.innerHTML = `
-            <h3>Intermediate Level Courses:</h3>
-            <ul>
-              <li>Advanced Mathematics</li>
-              <li>Thermodynamics</li>
-              <li>Machine Design</li>
-              <li>Manufacturing Processes</li>
-            </ul>
-          `;
-        } else if (courseLevel === 'N6') {
-          popupCoursesList.innerHTML = `
-            <h3>Advanced Level Courses:</h3>
-            <ul>
-              <li>Advanced Thermodynamics</li>
-              <li>Fluid Mechanics</li>
-              <li>Advanced Machine Design</li>
-              <li>Project Management</li>
-            </ul>
-          `;
-        }
-      }
-    }
-
-    function closeCoursePopup() {
-      document.getElementById('course-popup').classList.remove('open');
-    }
-
-    // Close popup when clicking outside content
-    document.addEventListener('click', function(event) {
-      const popup = document.getElementById('course-popup');
-      const popupContent = document.querySelector('.course-popup-content');
-
-      if (popup.classList.contains('open') && 
-          !popupContent.contains(event.target) && 
-          !event.target.closest('.program-card')) {
-        closeCoursePopup();
-      }
-    });
-  </script>
 </head>
 <body>
-  <main>
-    <div id="mechanical-v1-courses" class="programs-view" style="display: block;">
-      <div class="page-header">
-        <h1 class="page-title">Mechanical-v1 Courses</h1>
-        <p class="page-subtitle">Select your course level</p>
+
+  <!-- HEADER -->
+  <header class="px-20 lg:px-90 py-6 flex items-center justify-between">
+    <a class="flex items-center gap-4" href="#">
+      <img src="./images/logos/logo.png" alt="logo" class="h-200 w-20 object-contain rounded-md shadow" />
+      <div>
+        <div class="text-white text-xl font-semibold leading-tight">StudyPoint <br><span style="color:var(--teal)">Tutorials</span></div>
+      </div>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-6">
+      <a href="#intro-main" class="text-gray-200 hover:text-white">About</a>
+      <a href="#programs" class="text-gray-200 hover:text-white">Programs</a>
+      <a href="#testimonials-main" class="text-gray-200 hover:text-white">Testimonials</a>
+      <a href="#contactUs-section" class="text-gray-200 hover:text-white">Contact</a>
+      <button onclick="openModal('loginModal')" class="px-4 py-2 rounded-md bg-gradient-to-tr from-[var(--teal)] to-[var(--teal-700)] text-white font-medium shadow">Login</button>
+      <button onclick="openModal('registerModal')" class="px-4 py-2 rounded-md border border-white/10 text-white">Register</button>
+    </nav>
+
+    <div class="md:hidden">
+      <button id="mobileMenuBtn" class="p-2 bg-white/5 rounded-md">☰</button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main id="page" class="px-6 lg:px-20">
+
+    <!-- HERO -->
+    <section class="relative mt-6 grid lg:grid-cols-2 gap-10 items-center">
+      <div class="hero-accent" aria-hidden></div>
+
+      <div class="glass p-10 rounded-3xl shadow-lg card-hover">
+        <h1 class="text-4xl lg:text-5xl font-extrabold leading-tight">Transform Your Future at <span style="color:var(--teal)">StudyPoint</span></h1>
+        <p class="mt-4 text-gray-200 max-w-xl">World-class tutors, structured programs, and practice-focused learning — designed to help you excel in engineering and beyond. Join a community that cares about your success.</p>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <button onclick="openModal('registerModal')" class="px-6 py-3 rounded-full bg-gradient-to-tr from-[var(--teal)] to-[var(--teal-700)] font-semibold shadow-md">Get Started</button>
+          <a href="#programs" class="px-6 py-3 rounded-full border border-white/12 text-sm">Explore Programs</a>
+          <a href="#contactUs-section" class="px-6 py-3 rounded-full bg-white/6 text-sm">Contact Admissions</a>
+        </div>
+
+        <div class="mt-8 grid grid-cols-2 gap-3">
+          <div class="p-3 rounded-xl bg-white/3">
+            <div class="text-2xl">🎓</div>
+            <div class="text-sm mt-1">Expert Tutors</div>
+          </div>
+          <div class="p-3 rounded-xl bg-white/3">
+            <div class="text-2xl">📚</div>
+            <div class="text-sm mt-1">Comprehensive Resources</div>
+          </div>
+        </div>
       </div>
 
-      <div class="programs-grid">
-        <div class="program-card" onclick="showCourseDetails('N4', 'mechanical')">
-          <h3>N4</h3>
-          <p>Foundation level mechanical engineering courses</p>
-        </div>
-        <div class="program-card" onclick="showCourseDetails('N5', 'mechanical')">
-          <h3>N5</h3>
-          <p>Intermediate level mechanical engineering courses</p>
-        </div>
-        <div class="program-card" onclick="showCourseDetails('N6', 'mechanical')">
-          <h3>N6</h3>
-          <p>Advanced level mechanical engineering courses</p>
-        </div>
-      </div>
-    </div>
+      <!-- right visual card -->
+      <aside class="glass rounded-3xl p-6 lg:py-10 lg:px-10 max-w-md mx-auto">
+        <h3 class="text-xl font-semibold">Quick Register</h3>
+        <p class="text-gray-300 text-sm mt-1">Fast sign-up for upcoming cohorts. Secure your spot now.</p>
+        <form id="quickRegister" class="mt-4 space-y-3">
+          <input name="name" required placeholder="Full Name" class="w-full rounded-md px-3 py-2 bg-transparent border border-white/6" />
+          <input name="email" type="email" required placeholder="Email Address" class="w-full rounded-md px-3 py-2 bg-transparent border border-white/6" />
+          <select name="program" class="w-full rounded-md px-3 py-2 bg-transparent border border-white/6">
+            <option value="">Select Your Program</option>
+            <option>Mechanical Engineering</option>
+            <option>Chemical Engineering</option>
+            <option>Civil Engineering</option>
+            <option>Electrical Engineering</option>
+          </select>
+          <div class="flex gap-2">
+            <button type="submit" class="flex-1 px-3 py-2 rounded-md bg-[var(--teal)]">Register</button>
+            <button type="button" onclick="openModal('loginModal')" class="flex-1 px-3 py-2 rounded-md border border-white/10">Login</button>
+          </div>
+        </form>
+        <p class="text-xs text-gray-400 mt-3">By signing up you agree to our <a href="#" class="underline">terms</a>.</p>
+      </aside>
+    </section>
 
-    <!-- Popup -->
-    <div id="course-popup" class="course-popup">
-      <div class="course-popup-content">
-        <button class="close-btn" onclick="closeCoursePopup()">✖</button>
-        <h2 id="popup-title"></h2>
-        <div id="popup-courses-list"></div>
+    <!-- PROGRAMS -->
+    <section id="programs" class="mt-12">
+      <h2 class="text-2xl font-semibold">Programs / Courses</h2>
+      <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- card 1 -->
+        <article class="glass p-6 rounded-2xl card-hover">
+          <div class="flex items-start justify-between">
+            <div>
+              <h3 class="text-lg font-semibold">Mechanical Engineering</h3>
+              <p class="text-sm text-gray-300 mt-1">N4 • N5 • N6 — Engineering Mathematics, Mechanotechniques</p>
+            </div>
+            <div class="text-3xl">⚙️</div>
+          </div>
+          <div class="mt-4 flex items-center justify-between">
+            <div class="text-sm text-gray-300">From R450 / month</div>
+            <div>
+              <button onclick="openModal('registerModal')" class="px-3 py-1 rounded-md bg-[var(--teal)] text-white">Enroll</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- card 2 -->
+        <article class="glass p-6 rounded-2xl card-hover">
+          <div class="flex items-start justify-between">
+            <div>
+              <h3 class="text-lg font-semibold">Chemical Engineering</h3>
+              <p class="text-sm text-gray-300 mt-1">N4 • N5 • N6 — Process, Thermodynamics</p>
+            </div>
+            <div class="text-3xl">🧪</div>
+          </div>
+          <div class="mt-4 flex items-center justify-between">
+            <div class="text-sm text-gray-300">From R420 / month</div>
+            <div>
+              <button onclick="openModal('registerModal')" class="px-3 py-1 rounded-md bg-[var(--teal)] text-white">Enroll</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- card 3 -->
+        <article class="glass p-6 rounded-2xl card-hover">
+          <div class="flex items-start justify-between">
+            <div>
+              <h3 class="text-lg font-semibold">Civil / Structures</h3>
+              <p class="text-sm text-gray-300 mt-1">Design, Strength of Materials</p>
+            </div>
+            <div class="text-3xl">🏗️</div>
+          </div>
+          <div class="mt-4 flex items-center justify-between">
+            <div class="text-sm text-gray-300">From R400 / month</div>
+            <div>
+              <button onclick="openModal('registerModal')" class="px-3 py-1 rounded-md bg-[var(--teal)] text-white">Enroll</button>
+            </div>
+          </div>
+        </article>
       </div>
-    </div>
+    </section>
+
+    <!-- STATS & TESTIMONIALS -->
+    <section class="mt-12 grid md:grid-cols-2 gap-8 items-start">
+      <div class="glass p-6 rounded-xl">
+        <h3 class="text-xl font-semibold">Statistics</h3>
+        <div class="mt-4 grid grid-cols-2 gap-4">
+          <div class="p-4 rounded-lg glass text-center">
+            <div class="text-3xl font-bold" data-target="3500">0</div>
+            <div class="text-sm text-gray-300">Students Enrolled</div>
+          </div>
+          <div class="p-4 rounded-lg glass text-center">
+            <div class="text-3xl font-bold" data-target="15">0</div>
+            <div class="text-sm text-gray-300">Expert Tutors</div>
+          </div>
+          <div class="p-4 rounded-lg glass text-center">
+            <div class="text-3xl font-bold" data-target="95">0</div>
+            <div class="text-sm text-gray-300">Success Rate %</div>
+          </div>
+          <div class="p-4 rounded-lg glass text-center">
+            <div class="text-3xl font-bold" data-target="200">0</div>
+            <div class="text-sm text-gray-300">Courses Available</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="testimonials-main" class="glass p-6 rounded-xl">
+        <h3 class="text-xl font-semibold">What Our Students Say</h3>
+        <div class="mt-4 space-y-3">
+          <blockquote class="p-4 rounded-lg bg-white/3">"StudyPoint helped me achieve my academic goals. The tutors are amazing!" — <strong>Sarah Johnson</strong>, Mechanical Engineering</blockquote>
+          <blockquote class="p-4 rounded-lg bg-white/3">"The online resources and practice tests were incredibly helpful for my preparation." — <strong>Michael Chen</strong>, Chemical Engineering</blockquote>
+          <blockquote class="p-4 rounded-lg bg-white/3">"Flexible learning schedule and excellent support from the StudyPoint team." — <strong>Emily Rodriguez</strong>, Civil Engineering</blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER / CONTACT -->
+    <footer id="contactUs-section" class="mt-12 text-gray-300">
+      <div class="glass p-6 rounded-xl">
+        <div class="flex flex-col lg:flex-row gap-6 items-start justify-between">
+          <div>
+            <img src="./images/logos/full.png" class="h-12 mb-2" alt="full" />
+            <p class="text-sm">Subscribe! Send us your email and we will send you a list of our Tutorial Services.</p>
+          </div>
+          <form class="flex gap-2 mt-3 lg:mt-0">
+            <input placeholder="Your email" class="px-3 py-2 rounded-md w-72 bg-transparent border border-white/6" />
+            <button class="px-4 py-2 rounded-md bg-[var(--teal)]">Send!</button>
+          </form>
+        </div>
+
+        <div class="mt-6 flex items-center justify-between text-xs text-gray-400">
+          <div>Copyright 2024 | Created by CnL</div>
+          <div><a href="#" class="underline">Terms of Use</a> | <a href="#" class="underline">Privacy Policy</a></div>
+        </div>
+      </div>
+    </footer>
+
   </main>
+
+  <!-- MODALS -->
+  <!-- Generic modal root to reuse for login/register -->
+  <div id="modalBackdrops">
+    <!-- Register Modal -->
+    <div id="registerModal" class="fixed inset-0 z-50 flex items-center justify-center modal-root modal-closed">
+      <div class="absolute inset-0 bg-black/60" data-close-overlay></div>
+      <div class="relative w-full max-w-md rounded-2xl glass p-6" role="dialog" aria-modal="true" aria-labelledby="registerTitle">
+        <button class="absolute top-4 right-4 text-gray-200" data-close>&times;</button>
+        <div class="flex items-center gap-3">
+          <img src="./images/logos/logo.png" class="h-10 w-10" alt="logo" />
+          <div>
+            <div id="registerTitle" class="text-lg font-bold">Create Your Account</div>
+            <div class="text-xs text-gray-300">Join StudyPoint</div>
+          </div>
+        </div>
+
+        <form id="registerForm" class="mt-4 space-y-3">
+          <input name="fullname" placeholder="Full Name" required class="w-full rounded-md px-3 py-2 bg-transparent border border-white/6" />
+          <input name="email" type="email" placeholder="Email Address" required class="w-full rounded-md px-3 py-2 bg-transparent border border-white/6" />
+          <input name="password" type="password" placeholder="Password" required class="w-full rounded-md px-3 py-2 bg-transparent border border-white/6" />
+          <input name="confirm" type="password" placeholder="Confirm Password" required class="w-full rounded-md px-3 py-2 bg-transparent border border-white/6" />
+          <select name="program" class="w-full rounded-md px-3 py-2 bg-transparent border border-white/6">
+            <option value="">Select Your Program</option>
+            <option>Mechanical Engineering</option>
+            <option>Chemical Engineering</option>
+            <option>Civil Engineering</option>
+            <option>Electrical Engineering</option>
+          </select>
+          <div class="flex gap-2">
+            <button type="submit" class="flex-1 rounded-md px-3 py-2 bg-[var(--teal)]">Register</button>
+            <button type="button" class="flex-1 rounded-md px-3 py-2 border border-white/10" data-switch="loginModal">Login</button>
+          </div>
+          <div class="text-right">
+            <button type="button" class="text-sm text-gray-300 underline" data-close>Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="fixed inset-0 z-50 flex items-center justify-center modal-root modal-closed">
+      <div class="absolute inset-0 bg-black/60" data-close-overlay></div>
+      <div class="relative w-full max-w-md rounded-2xl glass p-6" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+        <button class="absolute top-4 right-4 text-gray-200" data-close>&times;</button>
+        <div class="flex items-center gap-3">
+          <img src="./images/logos/logo.png" class="h-10 w-10" alt="logo" />
+          <div>
+            <div id="loginTitle" class="text-lg font-bold">Welcome Back</div>
+            <div class="text-xs text-gray-300">Login to your account</div>
+          </div>
+        </div>
+
+        <form id="loginForm" class="mt-4 space-y-3">
+          <input name="email" type="email" placeholder="Email Address" required class="w-full rounded-md px-3 py-2 bg-transparent border border-white/6" />
+          <input name="password" type="password" placeholder="Password" required class="w-full rounded-md px-3 py-2 bg-transparent border border-white/6" />
+          <div class="flex items-center justify-between text-sm">
+            <label class="flex items-center gap-2"><input type="checkbox" name="remember"> Remember me</label>
+            <a href="#" class="underline text-gray-300">Forgot Password?</a>
+          </div>
+          <div class="flex gap-2">
+            <button type="submit" class="flex-1 rounded-md px-3 py-2 bg-[var(--teal)]">Login</button>
+            <button type="button" class="flex-1 rounded-md px-3 py-2 border border-white/10" data-switch="registerModal">Register</button>
+          </div>
+          <div class="text-right">
+            <button type="button" class="text-sm text-gray-300 underline" data-close>Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Modal system: robust open / close including ESC key, overlay click, and Cancel buttons
+    (function(){
+      const page = document.getElementById('page');
+      const modals = document.querySelectorAll('.modal-root');
+
+      function openModal(id){
+        const modal = document.getElementById(id);
+        if(!modal) return;
+        modal.classList.remove('modal-closed');
+        modal.classList.add('modal-open');
+        // blur page
+        document.getElementById('page').classList.add('page-blur');
+        // prevent background scroll
+        document.body.style.overflow = 'hidden';
+        // focus first input
+        setTimeout(()=>{
+          const el = modal.querySelector('input, select, button, textarea');
+          if(el) el.focus();
+        },160);
+      }
+
+      function closeModal(id){
+        const modal = document.getElementById(id);
+        if(!modal) return;
+        modal.classList.remove('modal-open');
+        modal.classList.add('modal-closed');
+        // remove blur only if no other modal open
+        setTimeout(()=>{
+          const anyOpen = Array.from(document.querySelectorAll('.modal-root')).some(m=>m.classList.contains('modal-open'));
+          if(!anyOpen){
+            document.getElementById('page').classList.remove('page-blur');
+            document.body.style.overflow = '';
+          }
+        },200);
+      }
+
+      // open/close helpers exposed globally for inline onclick usage
+      window.openModal = openModal;
+      window.closeModal = closeModal;
+
+      // overlay click to close
+      document.addEventListener('click', (e)=>{
+        // overlay close
+        if(e.target && e.target.hasAttribute('data-close-overlay')){
+          const modal = e.target.closest('.modal-root');
+          if(modal) closeModal(modal.id);
+        }
+        // buttons marked data-close
+        if(e.target && e.target.closest && e.target.closest('[data-close]')){
+          const modal = e.target.closest('.modal-root');
+          if(modal) closeModal(modal.id);
+        }
+        // switch buttons: open other modal
+        if(e.target && e.target.closest && e.target.closest('[data-switch]')){
+          const btn = e.target.closest('[data-switch]');
+          const target = btn.getAttribute('data-switch');
+          const modal = btn.closest('.modal-root');
+          if(modal) closeModal(modal.id);
+          setTimeout(()=> openModal(target), 260);
+        }
+      });
+
+      // close on ESC
+      document.addEventListener('keydown', (e)=>{
+        if(e.key === 'Escape'){
+          const open = Array.from(document.querySelectorAll('.modal-root')).find(m=>m.classList.contains('modal-open'));
+          if(open) closeModal(open.id);
+        }
+      });
+
+      // attach handlers for inline switch buttons inside page
+      document.querySelectorAll('[data-switch-modal]').forEach(btn =>{
+        btn.addEventListener('click', ()=> openModal(btn.getAttribute('data-switch-modal')));
+      });
+
+      // forms demo handlers
+      document.getElementById('registerForm').addEventListener('submit', function(e){ e.preventDefault(); alert('Registered (demo)'); closeModal('registerModal'); });
+      document.getElementById('loginForm').addEventListener('submit', function(e){ e.preventDefault(); alert('Logged in (demo)'); closeModal('loginModal'); });
+      document.getElementById('quickRegister').addEventListener('submit', function(e){ e.preventDefault(); alert('Thanks — we will email you (demo)'); });
+
+      // animated counters (animate when visible)
+      function animateCounter(el, target, duration=1200){ let start=0; const step = Math.max(1, Math.floor(target/(duration/16))); function tick(){ start += step; if(start < target){ el.textContent = start; requestAnimationFrame(tick);} else el.textContent = target; } tick(); }
+      document.addEventListener('DOMContentLoaded', ()=>{
+        document.querySelectorAll('[data-target]').forEach(el=>{
+          const to = parseInt(el.getAttribute('data-target'))||0;
+          const obs = new IntersectionObserver((entries)=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ animateCounter(el,to); obs.unobserve(el); } }); },{threshold:0.6});
+          obs.observe(el);
+        });
+
+        // subtle fade-up reveals
+        document.querySelectorAll('.fade-up').forEach((el,i)=>{ setTimeout(()=> el.classList.add('in'), 120 + i*80); });
+      });
+
+    })();
+  </script>
 </body>
 </html>
