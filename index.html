@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>StudyPoint Tutorials - Transform Your Engineering Future</title>
+  <title>StudyPoint Tutorials</title>
   <meta name="description" content="World-class engineering tutors and structured programs for N4, N5, N6. Join StudyPoint Tutorials for Mechanical, Chemical, Civil, and Electrical Engineering excellence." />
   <meta name="author" content="StudyPoint Tutorials" />
   
@@ -1255,20 +1255,20 @@ footer .bottom .right span {
       <aside class="quick-register">
         <h3>Quick Register</h3>
         <p>Fast sign-up for upcoming cohorts. Secure your spot now.</p>
-        <form id="quickRegisterForm">
+        <form id="quickRegisterForm" th:action="@{/studentRegistration}" role="form" method="post" th:object="${userForm}">
           <div class="form-group">
             <div>
-                <input type="text" placeholder="First Name" required />
-                <input type="text" placeholder="Last Name" required />
+                <input type="text" id="firstName" th:field="*{firstName}" required>
+                <input type="text" id="lastName" th:field="*{lastName}" required>
             </div>
           </div>
           <div class="form-group">
-            <input type="email" placeholder="Email Address" required />
+            <input type="email" id="email" th:field="*{email}" required>
           </div>
           <div class="form-group">
             <div>
-                <input type="text" placeholder="Phone Number" required />
-                <input type="text" placeholder="Address, Country" required />
+                <input type="number" id="phoneNumber" th:field="*{phoneNumber}" required>
+                <input type="text" id="homeAddress" th:field="*{homeAddress}" required style="width:100%;">
             </div>
           </div>
           <div class="form-buttons">
@@ -1463,7 +1463,7 @@ footer .bottom .right span {
         <h2>Welcome Back</h2>
         <p>Login to your StudyPoint account</p>
       </div>
-      <form id="loginForm">
+      <form id="loginForm" th:action="@{/login}" role="form" method="post">
         <div class="form-group">
           <label for="loginEmail">Student ID</label>
           <input type="email" id="loginEmail" placeholder="SN......." required />
@@ -1499,26 +1499,26 @@ footer .bottom .right span {
         <h2>Create Your Account</h2>
         <p>Join StudyPoint Tutorials</p>
       </div>
-      <form id="registerForm">
+      <form id="registerForm" th:action="@{/studentRegistration}" role="form" method="post" th:object="${userForm}">
         <div class="form-group">
-          <label for="registerName">First Name</label>
-          <input type="text" id="registerName" placeholder="John Doe" required />
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" placeholder="John Doe" th:field="*{firstName}" required />
         </div>
         <div class="form-group">
-          <label for="registerSurname">Last Name</label>
-          <input type="text" id="registerSurname" placeholder="John Doe" required />
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" placeholder="John Doe" th:field="*{lastName}" required />
         </div>
         <div class="form-group">
-          <label for="registerEmail">Email Address</label>
-          <input type="email" id="registerEmail" placeholder="you@example.com" required />
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="you@example.com" th:field="*{email}" required />
         </div>
         <div class="form-group">
-          <label for="registerPhone">Phone Number</label>
-          <input type="password" id="registerPhone" placeholder="Create a password" required />
+          <label for="phoneNumber">Phone Number</label>
+          <input type="password" id="phoneNumber" th:field="*{phoneNumber}" placeholder="Enter phone number" required />
         </div>
         <div class="form-group">
-          <label for="registerCountry">Full Address</label>
-          <input type="password" id="registerCountry" placeholder="Confirm your password" required />
+          <label for="homeAddress">Full Address</label>
+          <input type="password" id="homeAddress" th:field="*{homeAddress}" required style="width:100%;" placeholder="Enter city & country" required />
         </div>
         <div class="form-buttons">
           <button type="submit" class="btn btn-secondary">Register</button>
